@@ -2645,7 +2645,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       dot.style.transform = `scale(${sc})`;
       setTimeout(()=>intro.classList.add('night'), 480);
     };
-    // ===== 인트로 → 홈 연결: 문구는 사라지고 사진이 작아져 흰 점이 됨 → 8개로 갈라져 홈 네모 자리로 =====
+    // ===== 인트로 → 홈 연결: 문구는 사라지고 사진이 작아져 흰 점이 됨 → 점이 페이드 아웃 → 홈 =====
     const EASE = 'cubic-bezier(.65,0,.35,1)';
     const clones = [];
     const tracks = () => document.querySelectorAll('.tag-track');
@@ -2672,23 +2672,10 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       pic.style.transition = `transform 1.6s ${EASE}`;
       pic.style.transform = `translate(${dx}px, ${dy}px) scale(${w/pr.width}, ${h/pr.height})`;
       pic.classList.add('to-dot');
-      // 2) 가운데 흰 점은 은은하게 사라지고, 투명한 점 8개가 홈 네모 자리로 가며 진해짐 (흰색 → 홈 네모의 그레이)
-      setTimeout(()=>{
-        const n = Math.max(visible.length, 1);
-        for (let i = 0; i < n; i++) {
-          const c = document.createElement('i'); c.className = 'intro-dot on';
-          c.style.cssText = `left:${cx}px; top:${cy}px; width:${w}px; height:${h}px; opacity:0; transition:none;`;
-          intro.appendChild(c); clones.push(c);
-        }
-        void intro.offsetWidth;
-        pic.style.transition = 'opacity .5s ease'; pic.style.opacity = '0';
-        clones.forEach((c,i)=>{ const d = visible[i]; if (!d) return;
-          const r = d.getBoundingClientRect();
-          c.style.transition = 'transform .85s cubic-bezier(.22,1,.36,1), opacity .85s cubic-bezier(.4,0,.2,1), background-color .85s ease';
-          c.style.transform = `translate(${r.left - cx}px, ${r.top - cy}px)`; c.style.opacity = '1'; c.style.backgroundColor = '#9C9C9C'; });
-      }, 1800);
+      // 2) 흰 점이 된 사진은 그 자리에서 페이드 아웃
+      setTimeout(()=>{ pic.style.transition = 'opacity .6s ease'; pic.style.opacity = '0'; }, 1650);
       // 4) 배경이 걷히며 홈이 드러남
-      setTimeout(()=>{ intro.classList.add('reveal'); }, 2350);
+      setTimeout(()=>{ intro.classList.add('reveal'); }, 2000);
     };
     const endOutro = () => { tracks().forEach(t=>t.style.animationPlayState=''); };
 
@@ -2699,7 +2686,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       [650,  ()=>photo.classList.add('show-photo')],   // 제자리에서 블러 → 선명
       [1100, ()=>photo.classList.add('show-cap')],
       [2500, outro],
-      [3000, ()=>{ stopped=true; endOutro(); finish(); scrollTo(0,0); }]
+      [2700, ()=>{ stopped=true; endOutro(); finish(); scrollTo(0,0); }]
     ];
     const next = i => { if (i>=steps.length||stopped) return; setTimeout(()=>{ if(stopped) return; steps[i][1](); requestAnimationFrame(()=>next(i+1)); }, steps[i][0]); };
     next(0);
