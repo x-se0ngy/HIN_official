@@ -1917,8 +1917,11 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   #infoPanel,#aboutPanel{left:calc(189*var(--u)); right:auto; bottom:auto; top:calc(50% + 332*var(--u));
     display:grid; grid-template-columns:calc(527*var(--u)) calc(540*var(--u)) calc(500*var(--u)); gap:0; justify-content:start;}
   #infoPanel .col-label,#aboutPanel .col-label{line-height:calc(25*var(--u));}
-  #bgToggleRow{left:calc(189*var(--u)); right:auto; top:auto; bottom:max(16px, calc(50% - 520*var(--u)));}
+  /* ABOUT·SHOP: 위쪽 작은 네모 줄 높이 + 오른쪽 작은 네모 옆에 맞춤 (A안) */
+  .nav{transform:translate(calc(-160*var(--u)), calc(50vh - 475.5*var(--u)));}
 }
+/* WHITE / BLACK 배경 버튼 우선 숨김 (기본 BLACK 유지) */
+#bgToggleRow{display:none !important;}
 </style>
 </head>
 <body>
