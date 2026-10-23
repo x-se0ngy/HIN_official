@@ -1924,15 +1924,19 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 #bgToggleRow{display:none !important;}
 </style>
 <style id="intro-1023">
-/* 인트로: 노랑/검정 반전 단계 제거, 점 → 사진 프레임으로 확장 */
+/* 인트로: 노랑/검정 반전 제거 → 점이 팍 터지며 블랙 → 사진 → 문구 → 사진이 점으로 접히며 홈 */
 .dot-photo-wrap{opacity:1;}
-.dot-photo{position:relative; z-index:3; opacity:0; transform:scale(1.015); transition:opacity .6s ease, transform 1.2s cubic-bezier(.16,1,.3,1);}
+.dot-photo{position:relative; z-index:3; opacity:0; transform:scale(.86);
+  transition:opacity .35s ease, transform .9s cubic-bezier(.16,1,.3,1);}
 .dot-photo-wrap.show-photo .dot-photo{opacity:1; transform:none;}
-.dot-caption{opacity:0; transform:translateY(10px); transition:opacity .6s ease, transform .8s cubic-bezier(.16,1,.3,1);}
+.dot-caption{position:relative; z-index:3; opacity:0; transform:translateY(12px);
+  transition:opacity .6s ease, transform .8s cubic-bezier(.16,1,.3,1), filter .6s ease;}
 .dot-photo-wrap.show-cap .dot-caption{opacity:1; transform:none;}
 .dot-photo-wrap.show-cap .dot-caption-right{transition-delay:.12s;}
+.dot-photo-wrap.out .dot-photo{opacity:1; transform:scale(0); transition:transform .6s cubic-bezier(.7,0,.84,0);}
+.dot-photo-wrap.out .dot-caption{opacity:0; filter:blur(14px); transform:none; transition-delay:0s;}
 .dot-intro.night{background:#000;}
-.dot-intro.night .dot-shape{background:#000;}
+.dot-intro.leaving{transition:opacity .45s ease;}
 </style>
 </head>
 <body>
@@ -2603,21 +2607,21 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
     if (reduce) { intro.classList.add('done'); html.classList.remove('pre-active'); return; }
     const finish=()=>{ intro.classList.add('leaving'); html.classList.remove('pre-active'); setTimeout(()=>intro.classList.add('done'),700); };
     let stopped=false; intro.addEventListener('click', ()=>{ if(!stopped){ stopped=true; finish(); } });
-    // 흰 배경 점 커짐 → 점이 사진 프레임 크기로 확장 → 사진 → 배경 검정 + 문구 → 홈
-    const toFrame = () => {
-      const img = photo.querySelector('.dot-photo');
-      const a = dot.getBoundingClientRect(), b = img.getBoundingClientRect();
-      const sc = b.width / a.width;
-      const dx = (b.left + b.width/2) - (a.left + a.width/2), dy = (b.top + b.height/2) - (a.top + a.height/2);
-      dot.style.transition = 'transform 1.1s cubic-bezier(.76,0,.24,1)';
-      dot.style.transform = `translate(${dx}px, ${dy}px) scale(${sc})`;
+    // 흰 배경 점 커짐 → 팍! 점이 화면을 덮으며 블랙 → 사진 등장 → 양옆 문구 → 사진이 점으로 접히며 홈
+    const burst = () => {
+      const r = dot.getBoundingClientRect();
+      const sc = Math.hypot(innerWidth, innerHeight) * 2.2 / r.width;
+      dot.style.transition = 'transform .5s cubic-bezier(.7,0,.84,0)';
+      dot.style.transform = `scale(${sc})`;
+      setTimeout(()=>intro.classList.add('night'), 480);
     };
     const steps = [
       [200,  ()=>dot.classList.add('grow')],
-      [2300, toFrame],
-      [1100, ()=>photo.classList.add('show-photo')],
-      [700,  ()=>{ intro.classList.add('night'); photo.classList.add('show-cap'); }],
-      [2400, ()=>{ stopped=true; finish(); scrollTo(0,0); }]
+      [2300, burst],
+      [700,  ()=>photo.classList.add('show-photo')],
+      [550,  ()=>photo.classList.add('show-cap')],
+      [2300, ()=>photo.classList.add('out')],
+      [650,  ()=>{ stopped=true; finish(); scrollTo(0,0); }]
     ];
     const next = i => { if (i>=steps.length||stopped) return; setTimeout(()=>{ if(stopped) return; steps[i][1](); requestAnimationFrame(()=>next(i+1)); }, steps[i][0]); };
     next(0);
