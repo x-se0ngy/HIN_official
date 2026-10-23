@@ -1934,9 +1934,16 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   /* About 설명: 안쪽(2번째) 네모 줄 왼쪽 끝에 맞춰 시작 */
   .about-body{padding-left:calc(69.3*var(--u));}
   /* 1단도 2·3단과 같은 형식: 노랑 네모 + 제목, 흰 본문, 들여쓰기 없이 3문단 */
+  /* 1단 오른쪽 여백: 1→2단 사이 간격을 2→3단 사이 간격과 맞춤 */
+  .about-body{padding-right:calc(61*var(--u));}
   .about-body .about-label{font-family:var(--grotesk); font-weight:500; font-size:calc(16*var(--u)); line-height:calc(32*var(--u)); letter-spacing:calc(1*var(--u)); color:#fff;}
   .about-body p{margin:0 0 calc(16*var(--u)); color:#fff; font-size:calc(16*var(--u)); line-height:calc(26*var(--u)); text-indent:0 !important;}
 }
+</style>
+<style id="story-1024">
+/* 장 표시(01 / 11 —— NAME): 화면 하단, 아래쪽 작은 네모 줄 높이로 */
+.story{top:calc(50% + 386*var(--vu) - 12*var(--u));}
+@media (max-width:680px){ .story{top:auto; bottom:24px;} }
 </style>
 <style id="dots-color-1023">
 /* 화면 양옆 작은 네모: 정보 텍스트와 같은 그레이 */
