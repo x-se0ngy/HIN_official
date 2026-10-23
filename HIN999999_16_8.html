@@ -1930,8 +1930,8 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 #bgToggleRow{display:none !important;}
 </style>
 <style id="dots-color-1023">
-/* 화면 양옆 작은 네모: 로고·텍스트와 같은 화이트 */
-.dots i{background:#fff;}
+/* 화면 양옆 작은 네모: 정보 텍스트와 같은 그레이 */
+.dots i{background:#9C9C9C;}
 /* 네모 크기 15% 축소 (중심 위치는 그대로) */
 .dots i{width:calc(13.4*var(--u)); height:calc(12.6*var(--u)); margin:calc(3.6*var(--u)) 0 0 calc(3.8*var(--u));}
 /* 홈 정보 본문도 제목과 같은 그레이 */
@@ -2653,7 +2653,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       pic.style.transition = `transform 1.6s ${EASE}`;
       pic.style.transform = `translate(${dx}px, ${dy}px) scale(${w/pr.width}, ${h/pr.height})`;
       pic.classList.add('to-dot');
-      // 2) 가운데 흰 점은 은은하게 사라지고, 투명한 점 8개가 홈 네모 자리로 가며 진해짐
+      // 2) 가운데 흰 점은 은은하게 사라지고, 투명한 점 8개가 홈 네모 자리로 가며 진해짐 (흰색 → 홈 네모의 그레이)
       setTimeout(()=>{
         const n = Math.max(visible.length, 1);
         for (let i = 0; i < n; i++) {
@@ -2665,8 +2665,8 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
         pic.style.transition = 'opacity .5s ease'; pic.style.opacity = '0';
         clones.forEach((c,i)=>{ const d = visible[i]; if (!d) return;
           const r = d.getBoundingClientRect();
-          c.style.transition = 'transform .85s cubic-bezier(.22,1,.36,1), opacity .85s cubic-bezier(.4,0,.2,1)';
-          c.style.transform = `translate(${r.left - cx}px, ${r.top - cy}px)`; c.style.opacity = '1'; });
+          c.style.transition = 'transform .85s cubic-bezier(.22,1,.36,1), opacity .85s cubic-bezier(.4,0,.2,1), background-color .85s ease';
+          c.style.transform = `translate(${r.left - cx}px, ${r.top - cy}px)`; c.style.opacity = '1'; c.style.backgroundColor = '#9C9C9C'; });
       }, 1800);
       // 4) 배경이 걷히며 홈이 드러남
       setTimeout(()=>{ intro.classList.add('reveal'); }, 2350);
