@@ -1953,10 +1953,10 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 .dot-photo.to-dot::after{opacity:1;}
 .intro-dot{position:fixed; z-index:5; background:#fff; transform:scale(0); transition:transform .45s cubic-bezier(.22,1,.36,1); pointer-events:none;}
 .intro-dot.on{transform:none;}
-.dot-intro.night.reveal{background:transparent; transition:background-color .9s ease;}
+.dot-intro.night.reveal{background:transparent; transition:background-color .55s ease;}
 .dot-intro.reveal .dot-caption{opacity:0 !important; transition:transform 1.1s cubic-bezier(.65,0,.35,1), opacity .45s ease .2s !important;}
 .dot-intro.night{background:#000;}
-.dot-intro.leaving{transition:opacity .9s ease;}
+.dot-intro.leaving{transition:opacity .4s ease;}
 </style>
 </head>
 <body>
@@ -2665,11 +2665,11 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       setTimeout(()=>{
         clones.forEach((c,i)=>{ const d = visible[i]; if (!d) { c.style.opacity='0'; return; }
           const r = d.getBoundingClientRect();
-          c.style.transition = `transform 1.4s ${EASE}`;
+          c.style.transition = `transform .9s ${EASE}`;
           c.style.transform = `translate(${r.left - cx}px, ${r.top - cy}px)`; });
-      }, 2000);
+      }, 1950);
       // 4) 배경이 걷히며 홈이 드러남
-      setTimeout(()=>{ intro.classList.add('reveal'); }, 3000);
+      setTimeout(()=>{ intro.classList.add('reveal'); }, 2550);
     };
     const endOutro = () => { tracks().forEach(t=>t.style.animationPlayState=''); };
 
@@ -2679,7 +2679,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       [650,  ()=>photo.classList.add('show-photo')],   // 제자리에서 블러 → 선명
       [1100, ()=>photo.classList.add('show-cap')],
       [2500, outro],
-      [3900, ()=>{ stopped=true; endOutro(); finish(); scrollTo(0,0); }]
+      [3200, ()=>{ stopped=true; endOutro(); finish(); scrollTo(0,0); }]
     ];
     const next = i => { if (i>=steps.length||stopped) return; setTimeout(()=>{ if(stopped) return; steps[i][1](); requestAnimationFrame(()=>next(i+1)); }, steps[i][0]); };
     next(0);
