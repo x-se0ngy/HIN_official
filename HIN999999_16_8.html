@@ -1923,6 +1923,17 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 /* WHITE / BLACK 배경 버튼 우선 숨김 (기본 BLACK 유지) */
 #bgToggleRow{display:none !important;}
 </style>
+<style id="intro-1023">
+/* 인트로: 노랑/검정 반전 단계 제거, 점 → 사진 프레임으로 확장 */
+.dot-photo-wrap{opacity:1;}
+.dot-photo{position:relative; z-index:3; opacity:0; transform:scale(1.015); transition:opacity .6s ease, transform 1.2s cubic-bezier(.16,1,.3,1);}
+.dot-photo-wrap.show-photo .dot-photo{opacity:1; transform:none;}
+.dot-caption{opacity:0; transform:translateY(10px); transition:opacity .6s ease, transform .8s cubic-bezier(.16,1,.3,1);}
+.dot-photo-wrap.show-cap .dot-caption{opacity:1; transform:none;}
+.dot-photo-wrap.show-cap .dot-caption-right{transition-delay:.12s;}
+.dot-intro.night{background:#000;}
+.dot-intro.night .dot-shape{background:#000;}
+</style>
 </head>
 <body>
 
@@ -2592,12 +2603,21 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
     if (reduce) { intro.classList.add('done'); html.classList.remove('pre-active'); return; }
     const finish=()=>{ intro.classList.add('leaving'); html.classList.remove('pre-active'); setTimeout(()=>intro.classList.add('done'),700); };
     let stopped=false; intro.addEventListener('click', ()=>{ if(!stopped){ stopped=true; finish(); } });
+    // 흰 배경 점 커짐 → 점이 사진 프레임 크기로 확장 → 사진 → 배경 검정 + 문구 → 홈
+    const toFrame = () => {
+      const img = photo.querySelector('.dot-photo');
+      const a = dot.getBoundingClientRect(), b = img.getBoundingClientRect();
+      const sc = b.width / a.width;
+      const dx = (b.left + b.width/2) - (a.left + a.width/2), dy = (b.top + b.height/2) - (a.top + a.height/2);
+      dot.style.transition = 'transform 1.1s cubic-bezier(.76,0,.24,1)';
+      dot.style.transform = `translate(${dx}px, ${dy}px) scale(${sc})`;
+    };
     const steps = [
       [200,  ()=>dot.classList.add('grow')],
-      [2100, ()=>intro.classList.add('invert')],
-      [800,  ()=>{ dot.classList.add('hide'); photo.classList.add('show'); }],
-      [2300, ()=>{ photo.classList.remove('show'); dot.classList.remove('hide'); dot.classList.add('cover'); }],
-      [2100, ()=>{ stopped=true; finish(); scrollTo(0,0); }]
+      [2300, toFrame],
+      [1100, ()=>photo.classList.add('show-photo')],
+      [700,  ()=>{ intro.classList.add('night'); photo.classList.add('show-cap'); }],
+      [2400, ()=>{ stopped=true; finish(); scrollTo(0,0); }]
     ];
     const next = i => { if (i>=steps.length||stopped) return; setTimeout(()=>{ if(stopped) return; steps[i][1](); requestAnimationFrame(()=>next(i+1)); }, steps[i][0]); };
     next(0);
