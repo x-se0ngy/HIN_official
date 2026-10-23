@@ -1930,6 +1930,10 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 <style id="dots-color-1023">
 /* 화면 양옆 작은 네모: 로고·텍스트와 같은 화이트 */
 .dots i{background:#fff;}
+/* 네모 크기 약 30% 축소 (중심 위치는 그대로) */
+.dots i{width:calc(11*var(--u)); height:calc(10.4*var(--u)); margin:calc(4.7*var(--u)) 0 0 calc(5*var(--u));}
+/* 홈 정보 본문도 제목과 같은 그레이 */
+#infoPanel .col{color:#9C9C9C;}
 </style>
 <style id="intro-1023">
 /* 인트로: 점이 팍 터지며 블랙 → 사진이 제자리에서 블러→선명 → 문구 → 사진이 위로 걷히며 홈 */
