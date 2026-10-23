@@ -1947,7 +1947,10 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   transition:opacity 1.2s ease, transform 1.4s cubic-bezier(.22,1,.36,1), filter 1.2s ease;}
 .dot-photo-wrap.show-cap .dot-caption{opacity:1; transform:none; filter:none;}
 /* 퇴장 → 홈 연결 */
-.dot-photo-wrap.out-photo .dot-photo,.dot-photo-wrap.out-photo .dot-caption{opacity:0; filter:blur(10px); transform:none; transition:opacity .7s ease, filter .7s ease; transition-delay:0s;}
+.dot-photo-wrap.out-cap .dot-caption{opacity:0; filter:blur(10px); transform:none; transition:opacity .6s ease, filter .6s ease; transition-delay:0s;}
+/* 사진 → 흰 점: 작아지는 동안 사진 위로 흰색이 차오름 */
+.dot-photo::after{content:""; position:absolute; inset:0; background:#fff; opacity:0; transition:opacity .55s ease .4s;}
+.dot-photo.to-dot::after{opacity:1;}
 .intro-dot{position:fixed; z-index:5; background:#fff; transform:scale(0); transition:transform .45s cubic-bezier(.22,1,.36,1); pointer-events:none;}
 .intro-dot.on{transform:none;}
 .dot-intro.night.reveal{background:transparent; transition:background-color .7s ease;}
@@ -2621,7 +2624,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       dot.style.transform = `scale(${sc})`;
       setTimeout(()=>intro.classList.add('night'), 480);
     };
-    // ===== 인트로 → 홈 연결: 사진·문구가 사라지며 가운데 흰 점 → 8개로 갈라져 홈 네모 자리로 =====
+    // ===== 인트로 → 홈 연결: 문구는 사라지고 사진이 작아져 흰 점이 됨 → 8개로 갈라져 홈 네모 자리로 =====
     const EASE = 'cubic-bezier(.65,0,.35,1)';
     const clones = [];
     const tracks = () => document.querySelectorAll('.tag-track');
@@ -2635,31 +2638,38 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       cap.style.transform = `translate(${t.left - tr.left}px, ${t.top - tr.top}px) scale(${sc})`;
     };
     const outro = () => {
-      // 1) 사진 + 양옆 문구가 함께 흐려지며 사라짐 (터진 검은 점은 배경과 같은 검정이라 정리)
-      dot.style.transition = 'none'; dot.style.opacity = '0';
-      photo.classList.add('out-photo');
-      // 2) 가운데 흰 점 등장
-      const homeDots = [...document.querySelectorAll('.dots i')].filter(d => d.offsetParent !== null || getComputedStyle(d.parentElement).display !== 'none');
-      const ref = homeDots[0] && homeDots[0].getBoundingClientRect();
-      const w = ref && ref.width ? ref.width : 12, h = ref && ref.height ? ref.height : 12;
+      dot.style.transition = 'none'; dot.style.opacity = '0';   // 터진 검은 점 정리 (배경과 같은 검정)
+      // 홈 네모 위치·크기
+      const visible = [...document.querySelectorAll('.dots i')].filter(d => d.getBoundingClientRect().width > 0);
+      const ref = visible[0] && visible[0].getBoundingClientRect();
+      const w = ref ? ref.width : 12, h = ref ? ref.height : 12;
       const cx = innerWidth/2 - w/2, cy = innerHeight/2 - h/2;
-      const visible = homeDots.filter(d => d.getBoundingClientRect().width > 0);
+      // 1) 양옆 문구는 흐려지며 사라지고, 사진 프레임은 가운데로 작아지면서 흰 점이 됨
+      photo.classList.add('out-cap');
+      const pic = photo.querySelector('.dot-photo'), pr = pic.getBoundingClientRect();
+      const dx = (cx + w/2) - (pr.left + pr.width/2), dy = (cy + h/2) - (pr.top + pr.height/2);
+      pic.style.transition = `transform 1s ${EASE}`;
+      pic.style.transform = `translate(${dx}px, ${dy}px) scale(${w/pr.width}, ${h/pr.height})`;
+      pic.classList.add('to-dot');
+      // 2) 사진이 점 크기에 도착하면 진짜 점들로 교체 (같은 자리·같은 크기라 이어 보임)
       const n = Math.max(visible.length, 1);
-      for (let i = 0; i < n; i++) {
-        const c = document.createElement('i'); c.className = 'intro-dot';
-        c.style.cssText = `left:${cx}px; top:${cy}px; width:${w}px; height:${h}px;`;
-        intro.appendChild(c); clones.push(c);
-      }
-      requestAnimationFrame(()=>clones.forEach(c=>c.classList.add('on')));
-      // 4) 점이 8개로 갈라져 홈 네모 자리로
+      setTimeout(()=>{
+        for (let i = 0; i < n; i++) {
+          const c = document.createElement('i'); c.className = 'intro-dot on';
+          c.style.cssText = `left:${cx}px; top:${cy}px; width:${w}px; height:${h}px; transition:none;`;
+          intro.appendChild(c); clones.push(c);
+        }
+        pic.style.transition = 'none'; pic.style.opacity = '0';
+      }, 1000);
+      // 3) 점이 8개로 갈라져 홈 네모 자리로
       setTimeout(()=>{
         clones.forEach((c,i)=>{ const d = visible[i]; if (!d) { c.style.opacity='0'; return; }
           const r = d.getBoundingClientRect();
           c.style.transition = `transform 1s ${EASE}`;
           c.style.transform = `translate(${r.left - cx}px, ${r.top - cy}px)`; });
-      }, 800);
-      // 5) 배경이 걷히며 홈이 드러남
-      setTimeout(()=>{ intro.classList.add('reveal'); }, 1550);
+      }, 1150);
+      // 4) 배경이 걷히며 홈이 드러남
+      setTimeout(()=>{ intro.classList.add('reveal'); }, 1900);
     };
     const endOutro = () => { tracks().forEach(t=>t.style.animationPlayState=''); };
 
@@ -2669,7 +2679,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       [650,  ()=>photo.classList.add('show-photo')],   // 제자리에서 블러 → 선명
       [1100, ()=>photo.classList.add('show-cap')],
       [2500, outro],
-      [2300, ()=>{ stopped=true; endOutro(); finish(); scrollTo(0,0); }]
+      [2600, ()=>{ stopped=true; endOutro(); finish(); scrollTo(0,0); }]
     ];
     const next = i => { if (i>=steps.length||stopped) return; setTimeout(()=>{ if(stopped) return; steps[i][1](); requestAnimationFrame(()=>next(i+1)); }, steps[i][0]); };
     next(0);
