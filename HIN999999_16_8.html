@@ -1911,6 +1911,15 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 #pdPage .hpd-wordmark{width:clamp(120px,15vw,220px); margin-bottom:clamp(18px,2.2vw,32px); color:#fff;}
 #pdPage .hpd-wordmark svg{width:100%; height:auto; display:block;}
 </style>
+<style id="hero-layout-1023">
+/* 메인 히어로: 네모 세로 중앙 + 정보 텍스트를 아래 작은 네모 줄에 왼쪽 정렬 */
+@media (min-width:681px){
+  #infoPanel,#aboutPanel{left:calc(189*var(--u)); right:auto; bottom:auto; top:calc(50% + 332*var(--u));
+    display:grid; grid-template-columns:calc(527*var(--u)) calc(540*var(--u)) calc(500*var(--u)); gap:0; justify-content:start;}
+  #infoPanel .col-label,#aboutPanel .col-label{line-height:calc(25*var(--u));}
+  #bgToggleRow{left:calc(189*var(--u)); right:auto; top:auto; bottom:max(16px, calc(50% - 520*var(--u)));}
+}
+</style>
 </head>
 <body>
 
@@ -2546,7 +2555,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   <svg viewBox="0 0 205 34" fill="none" aria-hidden="true"><path d="M195.347 5.55294L195.365 1.08802L193.318 1.08802L193.318 0.169308L198.522 0.169308L198.522 1.08802L196.357 1.08802L196.339 5.55294L195.347 5.55294Z" fill="currentColor"/><path d="M199.465 5.55294L199.465 0.169308L201.079 0.169308L201.839 3.50973L202.879 0.169308L204.474 0.169308L204.474 5.55294L203.478 5.55294L203.478 1.21296L202.155 5.3104L201.523 5.3104L200.461 1.17989L200.461 5.55294L199.465 5.55294Z" fill="currentColor"/><path d="M176.568 1.67573L176.568 18.3705C176.568 19.5759 175.315 20.3696 174.228 19.8515L132.706 0.191099C132.485 0.0882034 132.246 0.0330809 132.004 0.0330809L99.2279 0.033079L99.2279 5.52067e-06L56.6733 3.15309e-06C55.7693 3.1028e-06 55.0343 0.73497 55.0343 1.63898L55.0343 9.30468C55.0343 10.2087 54.2994 10.9437 53.3953 10.9437L12.6855 10.9437C11.7815 10.9437 11.0466 10.2087 11.0466 9.30468L11.0466 1.63898C11.0466 0.734968 10.3116 5.73698e-07 9.40758 5.23403e-07L1.63898 9.11865e-08C0.731292 4.06864e-08 -4.08908e-08 0.734967 -9.11865e-08 1.63898L-1.75279e-06 31.5044C-1.80308e-06 32.4084 0.734965 33.1433 1.63897 33.1433L9.40758 33.1433C10.3116 33.1433 11.0466 32.4084 11.0466 31.5044L11.0466 23.8387C11.0466 22.9346 11.7815 22.1997 12.6855 22.1997L53.3953 22.1997C54.2994 22.1997 55.0343 22.9346 55.0343 23.8387L55.0343 31.5044C55.0343 32.4084 55.7693 33.1433 56.6733 33.1433L99.2279 33.1433L99.2279 33.1764L130.732 33.1764C131.636 33.1764 132.371 32.4415 132.371 31.5374L132.371 23.7688C132.371 22.8648 131.636 22.1299 130.732 22.1299L100.867 22.1299C99.9629 22.1299 99.2279 21.3949 99.2279 20.4909L99.2279 12.7223C99.2279 11.8183 99.9629 11.0833 100.867 11.0833L129.531 11.0833C129.773 11.0833 130.012 11.1384 130.232 11.2413L176.234 33.0221C176.455 33.125 176.693 33.1801 176.936 33.1801L185.976 33.1801C186.88 33.1801 187.615 32.4451 187.615 31.5411L187.615 1.67574C187.615 0.771726 186.88 0.0367587 185.976 0.0367587L178.207 0.0367583C177.303 0.0367582 176.568 0.771725 176.568 1.67573ZM86.5387 22.0968L56.8791 22.0968C55.9751 22.0968 55.2401 21.3618 55.2401 20.4578L55.2401 12.6892C55.2401 11.7852 55.9751 11.0502 56.8791 11.0502L86.5387 11.0502C87.4427 11.0502 88.1777 11.7852 88.1777 12.6892L88.1777 20.4578C88.1777 21.3618 87.4427 22.0968 86.5387 22.0968Z" fill="currentColor"/></svg>
 </button>
 
-<div class="dots" aria-hidden="true"><i style="left:calc(132*var(--u));top:calc(252*var(--u))"></i><i style="left:calc(48*var(--u));top:calc(371*var(--u))"></i><i style="left:calc(48*var(--u));top:calc(822*var(--u))"></i><i style="left:calc(132*var(--u));top:calc(941*var(--u))"></i><i style="left:calc(1760*var(--u));top:calc(252*var(--u))"></i><i style="left:calc(1844*var(--u));top:calc(371*var(--u))"></i><i style="left:calc(1844*var(--u));top:calc(822*var(--u))"></i><i style="left:calc(1760*var(--u));top:calc(941*var(--u))"></i></div>
+<div class="dots" aria-hidden="true"><i style="left:calc(132*var(--u));top:calc(50% + -354.4*var(--u))"></i><i style="left:calc(48*var(--u));top:calc(50% + -235.4*var(--u))"></i><i style="left:calc(48*var(--u));top:calc(50% + 215.6*var(--u))"></i><i style="left:calc(132*var(--u));top:calc(50% + 334.6*var(--u))"></i><i style="left:calc(1760*var(--u));top:calc(50% + -354.4*var(--u))"></i><i style="left:calc(1844*var(--u));top:calc(50% + -235.4*var(--u))"></i><i style="left:calc(1844*var(--u));top:calc(50% + 215.6*var(--u))"></i><i style="left:calc(1760*var(--u));top:calc(50% + 334.6*var(--u))"></i></div>
 <div class="header-top">
     <svg class="header-logo" id="siteNavLogo" viewBox="0 0 205 34" fill="none" aria-label="HIN™ 맨 위로" role="button" tabindex="0">
       <path d="M195.347 5.55294L195.365 1.08802L193.318 1.08802L193.318 0.169308L198.522 0.169308L198.522 1.08802L196.357 1.08802L196.339 5.55294L195.347 5.55294Z" fill="white"/>
