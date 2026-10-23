@@ -1914,9 +1914,9 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 <style id="hero-layout-1023">
 /* 메인 히어로: 네모 세로 중앙 + 정보 텍스트를 아래 작은 네모 줄에 왼쪽 정렬 */
 @media (min-width:681px){
-  /* 제목이 아래 작은 네모 바로 밑에서 시작 (왼쪽 끝 = 왼쪽 네모, 오른쪽 끝 = 오른쪽 네모) */
-  #infoPanel,#aboutPanel{left:calc(134.6*var(--u)); right:calc(142*var(--u)); bottom:auto; top:calc(50% + 366*var(--u));
-    display:flex; justify-content:space-between; gap:calc(48*var(--u));}
+  /* 제목: 아래 작은 네모 바로 밑 줄, 네모 오른쪽 끝에서 살짝 안쪽으로 시작 (시안 기준) */
+  #infoPanel,#aboutPanel{left:calc(164*var(--u)); right:auto; bottom:auto; top:calc(50% + 378*var(--u));
+    display:grid; grid-template-columns:calc(527*var(--u)) calc(539*var(--u)) calc(560*var(--u)); gap:0; justify-content:start;}
   /* 타이포 약 2.5pt 축소 */
   #infoPanel .col,#aboutPanel .col{font-size:calc(15.5*var(--u)); line-height:calc(22*var(--u));}
   #infoPanel .col-label,#aboutPanel .col-label{font-size:calc(13.5*var(--u)); letter-spacing:calc(3.4*var(--u)); line-height:calc(22*var(--u)); margin-bottom:calc(10*var(--u));}
@@ -1931,11 +1931,13 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 .dots i{background:#fff;}
 </style>
 <style id="intro-1023">
-/* 인트로: 점이 팍 터지며 블랙 → 화면을 채운 사진이 쏘옥 줄어 프레임에 안착 → 문구 → 사진이 위로 걷히며 홈 */
+/* 인트로: 점이 팍 터지며 블랙 → 사진이 제자리에서 블러→선명 → 문구 → 사진이 위로 걷히며 홈 */
 .dot-photo-wrap{opacity:1;}
-.dot-photo{position:relative; z-index:3; overflow:hidden; background-image:none !important; opacity:0; will-change:transform;}
+.dot-photo{position:relative; z-index:3; overflow:hidden; background-image:none !important;
+  opacity:0; filter:blur(22px); transform:scale(1.04);
+  transition:opacity 1.3s ease, filter 1.6s cubic-bezier(.22,1,.36,1), transform 1.8s cubic-bezier(.22,1,.36,1);}
 .dot-photo-img{position:absolute; inset:0; background-size:cover; background-position:center;}
-.dot-photo-wrap.show-photo .dot-photo{opacity:1;}
+.dot-photo-wrap.show-photo .dot-photo{opacity:1; filter:none; transform:none;}
 .dot-caption{position:relative; z-index:3; opacity:0; transform:translateY(14px); filter:blur(6px);
   transition:opacity 1.2s ease, transform 1.4s cubic-bezier(.22,1,.36,1), filter 1.2s ease;}
 .dot-photo-wrap.show-cap .dot-caption{opacity:1; transform:none; filter:none;}
@@ -2616,7 +2618,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
     if (reduce) { intro.classList.add('done'); html.classList.remove('pre-active'); return; }
     const finish=()=>{ intro.classList.add('leaving'); html.classList.remove('pre-active'); setTimeout(()=>intro.classList.add('done'),700); };
     let stopped=false; intro.addEventListener('click', ()=>{ if(!stopped){ stopped=true; finish(); } });
-    // 흰 배경 점 커짐 → 팍! 점이 화면을 덮으며 블랙 → 화면 가득 찬 사진이 쏘옥 줄어 프레임에 안착 → 양옆 문구 → 홈
+    // 흰 배경 점 커짐 → 팍! 점이 화면을 덮으며 블랙 → 사진이 제자리에서 블러→선명 → 양옆 문구 → 홈
     const burst = () => {
       const r = dot.getBoundingClientRect();
       const sc = Math.hypot(innerWidth, innerHeight) * 2.2 / r.width;
@@ -2624,28 +2626,11 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       dot.style.transform = `scale(${sc})`;
       setTimeout(()=>intro.classList.add('night'), 480);
     };
-    const pic = photo.querySelector('.dot-photo');
-    const bigPhoto = () => {           // 사진을 화면 가득 채운 상태로 준비
-      const r = pic.getBoundingClientRect();
-      const sc = Math.max(innerWidth / r.width, innerHeight / r.height) * 1.02;
-      const dx = innerWidth/2 - (r.left + r.width/2), dy = innerHeight/2 - (r.top + r.height/2);
-      pic.style.transition = 'none';
-      pic.style.transform = `translate(${dx}px, ${dy}px) scale(${sc})`;
-      void pic.offsetWidth;
-      pic.style.transition = 'opacity .45s ease';
-      photo.classList.add('show-photo');
-    };
-    const settle = () => {             // 쏘옥 — 부드럽게 줄어들며 제자리로
-      pic.style.transition = 'transform 1.6s cubic-bezier(.65,0,.15,1)';
-      pic.style.transform = 'none';
-      photo.classList.add('settled');
-    };
     const steps = [
       [200,  ()=>dot.classList.add('grow')],
       [2300, burst],
-      [520,  bigPhoto],
-      [450,  settle],
-      [1300, ()=>photo.classList.add('show-cap')],
+      [650,  ()=>photo.classList.add('show-photo')],   // 제자리에서 블러 → 선명
+      [1100, ()=>photo.classList.add('show-cap')],
       [2500, ()=>photo.classList.add('out')],
       [1000, ()=>{ stopped=true; finish(); scrollTo(0,0); }]
     ];
