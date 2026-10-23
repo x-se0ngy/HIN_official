@@ -2022,12 +2022,6 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 
 <button class="hv-btn info-x-close" id="infoCloseBtn" type="button" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
 
-<div class="info-panel" id="aboutPanel">
-  <div class="col col-wide"><div class="col-label">ABOUT</div><div>HIN focuses on the moments we often overlook in the rhythm of everyday life. By removing unnecessary elements and focusing on what truly matters, HIN creates products that connect naturally with the way we live.</div></div>
-  <div class="col"><div class="col-label">CONTACT</div><div>E: studio@hin-design.com<br>I: @hin.studio</div></div>
-  <div class="col"><div class="col-label">CREDITS</div><div>Design &amp; Development: 성경님<br>Graduation Project, 2026</div></div>
-</div>
-
 <div class="info-panel" id="infoPanel">
   <div class="col"><div class="col-label">BRAND</div><div>HIN — Here I Am Now</div><div class="info-desc">Designed for the way we work today.</div></div>
   <div class="col"><div class="col-label">PROJECT INFO</div><div>Portable Workspace System, 2026</div><div class="info-desc">One seamless setup, wherever you go.</div></div>
@@ -2356,11 +2350,6 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 
 <div class="ink">
 <button class="hv-btn info-x-close" id="p_infoCloseBtn" type="button" aria-label="닫기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
-<div class="info-panel" id="p_aboutPanel">
-  <div class="col col-wide"><div class="col-label">ABOUT</div><div>HIN focuses on the moments we often overlook in the rhythm of everyday life. By removing unnecessary elements and focusing on what truly matters, HIN creates products that connect naturally with the way we live.</div></div>
-  <div class="col"><div class="col-label">CONTACT</div><div>E: studio@hin-design.com<br>I: @hin.studio</div></div>
-  <div class="col"><div class="col-label">CREDITS</div><div>Design &amp; Development: 성경님<br>Graduation Project, 2026</div></div>
-</div>
 <div class="info-panel" id="p_infoPanel">
   <div class="col"><div class="col-label">CLIENT</div><div>HIN</div></div>
   <div class="col"><div class="col-label">PROJECT INFO</div><div>HIN-001 Product Viewer, 2026</div></div>
@@ -2774,7 +2763,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
     const infoBtn=$('navImageInfo'), aboutBtn=$('navAbout'), infoPanel=$('infoPanel'), aboutPanel=$('aboutPanel'), closeBtn=$('infoCloseBtn'), bgRow=$('bgToggleRow');
     const setDot = (b,on) => { b.classList.toggle('active',on); b.setAttribute('aria-pressed',on); const d=b.querySelector('.dot'); if(d) d.textContent = on?'•':'\u00A0'; };
     // 메인 1번: 히어로 구간에서는 항상 INFO 화면(블러+패널+배경 토글)만 보임. X·기본 컨트롤 바 없음
-    const hidePanels = () => { setDot(infoBtn,false); setDot(aboutBtn,false); [infoPanel,aboutPanel,bgRow,closeBtn].forEach(x=>x.classList.remove('active')); hero.classList.remove('blurred'); };
+    const hidePanels = () => { setDot(infoBtn,false); setDot(aboutBtn,false); [infoPanel,bgRow,closeBtn].forEach(x=>x.classList.remove('active')); hero.classList.remove('blurred'); };
     const showInfo = () => { hidePanels(); setDot(infoBtn,true); [infoPanel,bgRow].forEach(x=>x.classList.add('active')); hero.classList.add('blurred'); };
     const inHero = () => document.documentElement.dataset.view!=='shop' && heroWrap.getBoundingClientRect().bottom >= innerHeight*.6;
     const closeAll = () => { inHero() ? showInfo() : hidePanels(); };
@@ -2784,7 +2773,8 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       if (heroWrap.getBoundingClientRect().top < -10) { scrollTo({top:0, behavior:reduce?'auto':'smooth'}); setTimeout(go, reduce?0:500); } else go();
     };
     infoBtn.addEventListener('click', showInfo);
-    aboutBtn.addEventListener('click', e => { e.preventDefault(); if (document.documentElement.dataset.view!=='home') return; open(aboutBtn, aboutPanel); });
+    // ABOUT: 패널 대신 메인의 About 섹션으로 스크롤
+    aboutBtn.addEventListener('click', e => { e.preventDefault(); if (document.documentElement.dataset.view!=='home') return; const sec=document.getElementById('aboutSection'); if (sec) sec.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); });
     closeBtn.addEventListener('click', closeAll);
     addEventListener('keydown', e => { if (e.key==='Escape') { closeAll(); if (hero.classList.contains('is-full')) { hero.classList.remove('is-full'); document.body.style.overflow=''; markFull(); } } });
     addEventListener('scroll', () => {
@@ -2966,7 +2956,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   (() => {
     const infoBtn=$('p_navImageInfo'), aboutBtn=document.getElementById('navAbout'), infoP=$('p_infoPanel'), aboutP=$('p_aboutPanel'), closeBtn=$('p_infoCloseBtn'), bgRow=$('p_bgToggleRow');
     const setDot=(b,on)=>{ b.classList.toggle('active',on); b.setAttribute('aria-pressed',on); const d=b.querySelector('.dot'); if(d) d.textContent=on?'•':'\u00A0'; };
-    const closeAll=()=>{ setDot(infoBtn,false); setDot(aboutBtn,false); [infoP,aboutP,bgRow,closeBtn].forEach(x=>x.classList.remove('active')); hero.classList.remove('blurred'); };
+    const closeAll=()=>{ setDot(infoBtn,false); setDot(aboutBtn,false); [infoP,bgRow,closeBtn].forEach(x=>x.classList.remove('active')); hero.classList.remove('blurred'); };
     const open=(btn,panel)=>{ const was=btn.classList.contains('active'); closeAll(); if(was) return;
       const go=()=>{ menu(false); setDot(btn,true); [panel,bgRow,closeBtn].forEach(x=>x.classList.add('active')); hero.classList.add('blurred'); };
       if(heroWrap.getBoundingClientRect().top<-10){ scrollTo({top:0,behavior:reduce?'auto':'smooth'}); setTimeout(go,reduce?0:500); } else go(); };
