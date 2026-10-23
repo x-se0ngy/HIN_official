@@ -1918,8 +1918,9 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   #infoPanel,#aboutPanel{left:calc(164*var(--u)); right:auto; bottom:auto; top:calc(50% + 378*var(--u));
     display:grid; grid-template-columns:calc(527*var(--u)) calc(539*var(--u)) calc(560*var(--u)); gap:0; justify-content:start;}
   /* 타이포 약 2.5pt 축소 */
+  /* 행간: 제목→본문 간격을 본문 줄 간격과 같은 리듬으로 */
   #infoPanel .col,#aboutPanel .col{font-size:calc(15.5*var(--u)); line-height:calc(22*var(--u));}
-  #infoPanel .col-label,#aboutPanel .col-label{font-size:calc(13.5*var(--u)); letter-spacing:calc(3.4*var(--u)); line-height:calc(22*var(--u)); margin-bottom:calc(10*var(--u));}
+  #infoPanel .col-label,#aboutPanel .col-label{font-size:calc(13.5*var(--u)); letter-spacing:calc(3.4*var(--u)); line-height:calc(16*var(--u)); margin-bottom:calc(6*var(--u));}
   /* ABOUT·SHOP: 위쪽 작은 네모 줄 높이 + 오른쪽 작은 네모 옆에 맞춤 (A안) */
   .nav{transform:translate(calc(-160*var(--u)), calc(50vh - 475.5*var(--u)));}
 }
@@ -1941,11 +1942,9 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 .dot-caption{position:relative; z-index:3; opacity:0; transform:translateY(14px); filter:blur(6px);
   transition:opacity 1.2s ease, transform 1.4s cubic-bezier(.22,1,.36,1), filter 1.2s ease;}
 .dot-photo-wrap.show-cap .dot-caption{opacity:1; transform:none; filter:none;}
-.dot-photo-wrap.show-cap .dot-caption-right{transition-delay:.18s;}
-.dot-photo-wrap.out .dot-photo{clip-path:inset(0 0 100% 0); transition:clip-path 1.1s cubic-bezier(.65,0,.35,1) !important;}
-.dot-photo-wrap.out .dot-photo-img{transform:translateY(-10%) scale(1.06); transition:transform 1.1s cubic-bezier(.65,0,.35,1);}
-.dot-photo-wrap.out .dot-caption{opacity:0; filter:blur(10px); transform:translateY(-8px);
-  transition:opacity .9s ease, transform 1.1s cubic-bezier(.65,0,.35,1), filter .9s ease; transition-delay:0s;}
+/* 퇴장: 사진 + 양옆 문구 3개가 같은 시간·같은 방식으로 동시에 사라짐 */
+.dot-photo-wrap.out .dot-photo,.dot-photo-wrap.out .dot-caption{opacity:0; filter:blur(10px); transform:none;
+  transition:opacity .9s ease, filter .9s ease; transition-delay:0s;}
 .dot-intro.night{background:#000;}
 .dot-intro.leaving{transition:opacity .9s ease;}
 </style>
