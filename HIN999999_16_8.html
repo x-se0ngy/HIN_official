@@ -1943,7 +1943,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   transition:opacity 1.2s ease, transform 1.4s cubic-bezier(.22,1,.36,1), filter 1.2s ease;}
 .dot-photo-wrap.show-cap .dot-caption{opacity:1; transform:none; filter:none;}
 /* 퇴장 → 홈 연결 */
-.dot-photo-wrap.out-photo .dot-photo{opacity:0; filter:blur(10px); transition:opacity .7s ease, filter .7s ease;}
+.dot-photo-wrap.out-photo .dot-photo,.dot-photo-wrap.out-photo .dot-caption{opacity:0; filter:blur(10px); transform:none; transition:opacity .7s ease, filter .7s ease; transition-delay:0s;}
 .intro-dot{position:fixed; z-index:5; background:#fff; transform:scale(0); transition:transform .45s cubic-bezier(.22,1,.36,1); pointer-events:none;}
 .intro-dot.on{transform:none;}
 .dot-intro.night.reveal{background:transparent; transition:background-color .7s ease;}
@@ -2617,7 +2617,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       dot.style.transform = `scale(${sc})`;
       setTimeout(()=>intro.classList.add('night'), 480);
     };
-    // ===== 인트로 → 홈 연결: 사진이 사라지며 가운데 흰 점 → 8개로 갈라져 홈 네모 자리로 / 문구는 상단 헤더 줄로 =====
+    // ===== 인트로 → 홈 연결: 사진·문구가 사라지며 가운데 흰 점 → 8개로 갈라져 홈 네모 자리로 =====
     const EASE = 'cubic-bezier(.65,0,.35,1)';
     const clones = [];
     const tracks = () => document.querySelectorAll('.tag-track');
@@ -2631,7 +2631,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
       cap.style.transform = `translate(${t.left - tr.left}px, ${t.top - tr.top}px) scale(${sc})`;
     };
     const outro = () => {
-      // 1) 사진만 흐려지며 사라짐 (터진 검은 점은 배경과 같은 검정이라 정리)
+      // 1) 사진 + 양옆 문구가 함께 흐려지며 사라짐 (터진 검은 점은 배경과 같은 검정이라 정리)
       dot.style.transition = 'none'; dot.style.opacity = '0';
       photo.classList.add('out-photo');
       // 2) 가운데 흰 점 등장
@@ -2647,20 +2647,6 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
         intro.appendChild(c); clones.push(c);
       }
       requestAnimationFrame(()=>clones.forEach(c=>c.classList.add('on')));
-      // 3) 문구 → 헤더 줄 (헤더 문구 흐름을 잠시 멈추고 그 자리로)
-      tracks().forEach(t=>t.style.animationPlayState='paused');
-      setTimeout(()=>{
-        const line = document.querySelector('.tagline'), lr = line && line.getBoundingClientRect();
-        let A = null, B = null;
-        if (lr && lr.width) {
-          for (const g of document.querySelectorAll('.tag-layer.sharp .tag-group')) {
-            const a = g.querySelector('.a').getBoundingClientRect();
-            if (a.left >= lr.left + 2 && a.right < lr.left + lr.width * 0.7) { A = g.querySelector('.a'); B = g.querySelector('.b'); break; }
-          }
-        }
-        flyCaption(photo.querySelector('.dot-caption-left'), A);
-        flyCaption(photo.querySelector('.dot-caption-right'), B);
-      }, 350);
       // 4) 점이 8개로 갈라져 홈 네모 자리로
       setTimeout(()=>{
         clones.forEach((c,i)=>{ const d = visible[i]; if (!d) { c.style.opacity='0'; return; }
@@ -2668,7 +2654,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
           c.style.transition = `transform 1s ${EASE}`;
           c.style.transform = `translate(${r.left - cx}px, ${r.top - cy}px)`; });
       }, 800);
-      // 5) 배경이 걷히며 홈이 드러남, 도착한 문구는 실제 헤더 문구와 겹치며 사라짐
+      // 5) 배경이 걷히며 홈이 드러남
       setTimeout(()=>{ intro.classList.add('reveal'); }, 1550);
     };
     const endOutro = () => { tracks().forEach(t=>t.style.animationPlayState=''); };
