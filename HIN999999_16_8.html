@@ -1948,6 +1948,19 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 .story{top:calc(50% + 386*var(--vu) - 12*var(--u));}
 @media (max-width:680px){ .story{top:auto; bottom:24px;} }
 </style>
+<style id="campaign-1024">
+/* 캠페인 카드: 01 : CAFÉ + 한 줄 카피 + 설명, 내용 길이에 맞춰 카드 높이 자동 */
+.slider.first .s-card{height:auto;}
+.slider.first .s-card-inner{position:relative; left:auto; top:auto; transform:none; margin:0 auto; padding:calc(34*var(--u)) 0; gap:calc(34*var(--u));}
+/* 카드가 길어진 만큼 위로 올려 하단 장 표시와 겹치지 않게 */
+@media (min-width:681px){ .slider.first .s-card-wrap{top:calc(455*var(--u));} }
+/* 픽셀 폰트에 É 글자가 없어서 E 위에 픽셀 악센트를 직접 그림 */
+.s-title .acc{position:relative; display:inline-block;}
+.s-title .acc::after{content:""; position:absolute; left:55%; top:-.02em; width:.2em; height:.09em; background:currentColor; transform:skewY(-35deg);}
+.slider.first .s-addr{color:#fff;}
+.s-desc{margin:calc(10*var(--u)) 0 0; font-family:var(--grotesk); font-weight:500; font-size:calc(16*var(--u)); line-height:calc(26*var(--u)); color:var(--gray-500); max-width:calc(480*var(--u));}
+@media (max-width:680px){ .slider.first .s-card-inner{padding:18px; gap:18px;} .s-desc{font-size:12px; line-height:18px; margin-top:4px;} }
+</style>
 <style id="dots-color-1023">
 /* 화면 양옆 작은 네모: 정보 텍스트와 같은 그레이 */
 .dots i{background:#9C9C9C;}
@@ -2078,8 +2091,8 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   <button type="button" class="s-arrow next" aria-label="다음"><svg viewBox="0 0 69 69" fill="none" aria-hidden="true"><path d="M19.182 56.5508L26.8021 56.5508L45.701 37.6548L45.701 31.2486L26.8021 12.3497L19.182 12.3497L19.182 8.32937L28.4674 8.33217L49.6652 29.53L49.7185 29.53L49.7185 39.3173L28.4674 60.5712L19.182 60.5712L19.182 56.5508Z" fill="white"/></svg></button>
   <div class="s-card-wrap">
     <div class="s-card"><div class="s-card-inner">
-      <div><p class="s-title">HIN NO. 01</p><p class="s-addr">273 Ttukseom-ro, Seongdong-gu, Seoul</p></div>
-      <a class="s-btn" href="#"><span>LOOK AROUND</span><svg viewBox="0 0 47 47" fill="none" aria-hidden="true"><path d="M19.9216 8.25556H25.0168L37.647 20.8858V21.7009H5.71917V24.3881H37.647V25.1677L25.0149 37.7998H19.9216V40.4851H26.128L40.2986 26.3145H40.3342V19.7727L26.128 5.56836H19.9216V8.25556Z" fill="#FCFCFC"/></svg></a>
+      <div><p class="s-title">01 : Caf<span class="acc">e</span></p><p class="s-addr">A New Place, The Same Flow.</p><p class="s-desc">From morning coffee to focused afternoons, HIN keeps your workspace familiar wherever you go.</p></div>
+      <a class="s-btn" href="#"><span>DISCOVER MORE</span><svg viewBox="0 0 47 47" fill="none" aria-hidden="true"><path d="M19.9216 8.25556H25.0168L37.647 20.8858V21.7009H5.71917V24.3881H37.647V25.1677L25.0149 37.7998H19.9216V40.4851H26.128L40.2986 26.3145H40.3342V19.7727L26.128 5.56836H19.9216V8.25556Z" fill="#FCFCFC"/></svg></a>
     </div></div>
     <div class="s-dots"><button type="button" class="on" aria-label="1번째 슬라이드"></button><button type="button" class="" aria-label="2번째 슬라이드"></button><button type="button" class="" aria-label="3번째 슬라이드"></button></div>
   </div>
