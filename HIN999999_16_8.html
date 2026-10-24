@@ -2134,6 +2134,13 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   .mag-ui.tr,.mag-ui.br{display:none !important;}
 }
 </style>
+<style id="mag-ui-type-1024">
+/* 매거진 양옆 글씨: 레퍼런스처럼 — 흰 대문자 굵은 제목 + 회색 보조 줄, 촘촘한 행간 */
+.mag-ui.tl,.mag-ui.bl{text-transform:none !important; letter-spacing:-0.01em !important; line-height:1.2 !important;}
+.mag-ui.tl b,.mag-ui.bl b{display:block; font-weight:600; text-transform:uppercase; color:#fff;}
+.mag-ui.tl span,.mag-ui.bl span{display:block; font-weight:600; color:#9C9C9C;}
+@media (min-width:681px){ .mag-ui.tl,.mag-ui.bl{font-size:calc(16*var(--u)) !important;} }
+</style>
 </head>
 <body>
 
@@ -2340,9 +2347,9 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
       <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 04</div><div class="title">Back in place</div><div class="sub">At the end of the day, fold it up<br>and set it back in place.</div><div class="note">Tomorrow, it unfolds right where you left off.</div></div>
     </div>
 
-    <div class="mag-ui tl">HIN Magazine<br>Issue 01</div>
+    <div class="mag-ui tl"><b>HIN Magazine</b><span>Issue 01</span></div>
     <div class="mag-ui tr">2026<br>Here I Am Now</div>
-    <div class="mag-ui bl">Digital nomad<br>workers &amp; creators</div>
+    <div class="mag-ui bl"><b>Digital Nomad</b><span>Workers &amp; Creators</span></div>
     <div class="mag-ui br" id="magCount">01 / 04</div>
 
     <div class="mag-tag" style="left:calc(234*var(--u)); top:38%;" data-t="0"><i></i>The state-keeping issue</div>
