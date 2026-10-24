@@ -2162,7 +2162,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 </style>
 <style id="hinge-gallery-1024">
 /* 경첩 갤러리: 살짝 접힌 병풍(약 24°) ↔ 평평하게 펴짐. 판마다 5T 두께 (앞·뒤·옆면) */
-.hinge-gallery{position:relative; height:260vh; background:#000;}
+.hinge-gallery{position:relative; height:360vh; background:#000;}
 .hg-pin{position:sticky; top:0; height:100vh; overflow:hidden; perspective:2600px; perspective-origin:50% 45%;}
 .hg-stage{--sw:calc(1641.4*var(--u)); --t:calc(12*var(--u)); position:absolute; left:calc(135.8*var(--u)); top:50%; width:var(--sw); height:calc(var(--sw)*630/1759);
   margin-top:calc(var(--sw)*-315/1759); transform-style:preserve-3d; will-change:transform;}
@@ -3721,12 +3721,12 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
     const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, MAX=24;
     let cur=null, raf=0, on=false;
-    const target=()=>{ if(reduce) return 1; const r=sec.getBoundingClientRect(); const H=innerHeight, open=clamp((H*.15 - r.top)/(H*.75),0,1), close=clamp((r.bottom - H*.5)/(H*.9),0,1); return Math.min(open,close); /* 들어올 때 펴지고, 올라가며 나갈 때 다시 접힘 */ };
+    const target=()=>{ if(reduce) return 1; const r=sec.getBoundingClientRect(); const H=innerHeight, open=clamp((H*.1 - r.top)/(H*1.1),0,1), close=clamp((r.bottom - H*.4)/(H*1.2),0,1); return Math.min(open,close); /* 들어올 때 펴지고, 올라가며 나갈 때 다시 접힘 */ };
     const draw=p=>{ const th=MAX*(1-ease(p)), rad=th*Math.PI/180, W=stage.offsetWidth;
       ps.forEach((el,i)=>{ const a = i===0 ? th : (i%2 ? -2*th : 2*th); el.style.transform=`rotateY(${a}deg)`;
         sh[i].style.opacity=(Math.sin(rad)*(i%2?0.12:0.5)).toFixed(3); });
       stage.style.transform=`translateX(${(W-W*Math.cos(rad))/2}px)`; };
-    const loop=()=>{ const t=target(); cur = cur===null ? t : cur+(t-cur)*.12; draw(cur); if(on) raf=requestAnimationFrame(loop); };
+    const loop=()=>{ const t=target(); cur = cur===null ? t : cur+(t-cur)*.08; draw(cur); if(on) raf=requestAnimationFrame(loop); };
     new IntersectionObserver(es=>{ const v=es[0].isIntersecting; if(v&&!on){ on=true; raf=requestAnimationFrame(loop);} else if(!v&&on){ on=false; cancelAnimationFrame(raf);} }).observe(sec);
     draw(target());
   })();
