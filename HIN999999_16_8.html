@@ -2100,11 +2100,11 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   .mag-ui{line-height:1.25 !important; letter-spacing:-0.005em !important;}
   .mag-tag{letter-spacing:-0.005em;}
   /* About */
-  .about-body p{line-height:1.25 !important; letter-spacing:-0.01em !important; margin-bottom:calc(14*var(--u)) !important;}
-  .about-body p{max-width:calc(432*var(--u)) !important;}  /* 좁아진 자간만큼 폭도 줄여 기존 줄바꿈 유지 */
-  .about-address div,.about-focus div{line-height:1.25 !important; letter-spacing:-0.005em !important;}
+  .about-body p{line-height:1.25 !important; letter-spacing:0.01em !important; margin-bottom:calc(14*var(--u)) !important;}
+  .about-body p{max-width:calc(450*var(--u)) !important;}  /* 좁아진 자간만큼 폭도 줄여 기존 줄바꿈 유지 */
+  .about-address div,.about-focus div{line-height:1.25 !important; letter-spacing:0.01em !important;}
   .about-address > div:last-child,.about-focus > div:last-child{line-height:1.25 !important;}
-  .about-label{letter-spacing:-0.005em !important;}
+  .about-label{letter-spacing:0.01em !important;}
 }
 </style>
 <style id="about-list-1024">
@@ -2136,10 +2136,19 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 </style>
 <style id="mag-ui-type-1024">
 /* 매거진 양옆 글씨: 레퍼런스처럼 — 흰 대문자 굵은 제목 + 회색 보조 줄, 촘촘한 행간 */
-.mag-ui.tl,.mag-ui.bl{text-transform:none !important; letter-spacing:-0.01em !important; line-height:1.2 !important;}
-.mag-ui.tl b,.mag-ui.bl b{display:block; font-weight:600; text-transform:uppercase; color:#fff;}
-.mag-ui.tl span,.mag-ui.bl span{display:block; font-weight:600; color:#9C9C9C;}
+.mag-ui.tl,.mag-ui.bl{text-transform:none !important; letter-spacing:0.02em !important; line-height:1.2 !important;}
+.mag-ui.tl b,.mag-ui.bl b{display:block; font-weight:700; text-transform:none; color:#fff;}
+.mag-ui.tl span,.mag-ui.bl span{display:block; font-weight:700; color:#9C9C9C;}
 @media (min-width:681px){ .mag-ui.tl,.mag-ui.bl{font-size:calc(16*var(--u)) !important;} }
+</style>
+<style id="footer-1024">
+/* 푸터: 연락처·약관 정보 빼고, 점 로고만 약 80% 크기로 가운데 */
+.site-footer .f-info{display:none !important;}
+@media (min-width:681px){
+  .site-footer{height:calc(560*var(--u)) !important;}
+  .site-footer .f-mark{--u:calc(100vw / 1920 * .8); right:auto !important; bottom:auto !important; left:calc(232.6 * 100vw / 1920) !important; top:calc(-176 * 100vw / 1920) !important; width:calc(1500 * 100vw / 1920); height:calc(900 * 100vw / 1920);}
+}
+@media (max-width:680px){ .site-footer{padding-top:24px;} }
 </style>
 </head>
 <body>
@@ -3275,7 +3284,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     const F=4, lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
     const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
     let W=innerWidth, H=innerHeight, cw, ch;
-    const size=()=>{ W=innerWidth; H=innerHeight; cw=Math.min(W*(W<680?.28:.115), H*.23); ch=cw*1.292;
+    const size=()=>{ W=innerWidth; H=innerHeight; cw=Math.min(W*(W<680?.3:.13), H*.26); ch=cw*1.292;
       cards.forEach(c=>{ c.style.width=cw+'px'; c.style.height=ch+'px'; c.style.marginLeft=(-cw/2)+'px'; c.style.marginTop=(-ch/2)+'px'; }); };
     size(); addEventListener('resize', size);
     const wrap=v=>((v%1)+1)%1;
