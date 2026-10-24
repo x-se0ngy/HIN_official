@@ -2112,6 +2112,15 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   .about-body p{color:#9C9C9C !important;}
 }
 </style>
+<style id="mag-ch-1024">
+/* 매거진 챕터: 글자 뒤 검은 그림자 제거 → 네모·선처럼 사진 위에서 반전 */
+.mag-chapters{mix-blend-mode:difference;}
+.mag-ch .title,.mag-ch .sub,.mag-ch .eyebrow,.mag-ch .note{text-shadow:none !important;}
+.mag-ch .eyebrow i{background:#fff !important;}
+.mag-ch .note{margin-top:calc(14*var(--u)); font-family:var(--grotesk); font-weight:400; font-size:calc(14*var(--u)); line-height:1.25; letter-spacing:-0.01em; color:#9C9C9C;}
+.mag-ch.on .note{transition-delay:.7s;}
+@media (max-width:680px){ .mag-ch .note{font-size:11px; margin-top:6px;} }
+</style>
 </head>
 <body>
 
@@ -2310,12 +2319,12 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     </svg>
 
     <div class="mag-chapters" id="magChapters">
-      <div class="mag-ch on"><div class="eyebrow"><i></i>Chapter 01</div><div class="title">Lighter by design</div><div class="sub">A 1.2 kg body that makes work<br>feel lighter in your hands.</div></div>
-      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 02</div><div class="title">Fold, and go</div><div class="sub">One fold,<br>and it’s ready to travel.</div></div>
-      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 03</div><div class="title">Unfold anywhere</div><div class="sub">Desk, café, window seat —<br>a workspace for any place.</div></div>
+      <div class="mag-ch on"><div class="eyebrow"><i></i>Chapter 01</div><div class="title">Lighter by design</div><div class="sub">A 1.2 kg body that makes work<br>feel lighter in your hands.</div><div class="note">Carry less, and keep more of your focus.</div></div>
+      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 02</div><div class="title">Fold, and go</div><div class="sub">One fold,<br>and it’s ready to travel.</div><div class="note">Your whole setup, folded into one object.</div></div>
+      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 03</div><div class="title">Unfold anywhere</div><div class="sub">Desk, café, window seat —<br>a workspace for any place.</div><div class="note">Wherever you sit, your work state follows.</div></div>
       
       
-      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 04</div><div class="title">Back in place</div><div class="sub">At the end of the day, fold it up<br>and set it back in place.</div></div>
+      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 04</div><div class="title">Back in place</div><div class="sub">At the end of the day, fold it up<br>and set it back in place.</div><div class="note">Tomorrow, it unfolds right where you left off.</div></div>
     </div>
 
     <div class="mag-ui tl">HIN Magazine<br>Issue 01</div>
