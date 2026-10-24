@@ -2142,11 +2142,12 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 @media (min-width:681px){ .mag-ui.tl,.mag-ui.bl{font-size:calc(16*var(--u)) !important;} }
 </style>
 <style id="footer-1024">
-/* 푸터: 점 로고를 안쪽(2번째) 네모 줄 왼쪽~오른쪽까지 꽉 채우고 바닥에 붙임 */
+/* 푸터: 점 로고를 안쪽 네모 한 칸 옆에서 시작·끝, 밑변은 아래 네모 줄과 나란히 */
 .site-footer .f-info{display:none !important;}
 @media (min-width:681px){
-  .site-footer{height:calc(522*var(--u)) !important;}
-  .site-footer .f-mark{--u:calc(100vw / 1920 * .9738); right:auto !important; bottom:auto !important; left:calc(71.04 * 100vw / 1920) !important; top:calc(-240.3 * 100vw / 1920) !important; width:calc(1800 * 100vw / 1920); height:calc(745 * 100vw / 1920);}
+  /* 높이 = 화면 하단~아래 네모 줄 거리 + 420u → 로고 밑변이 아래쪽 네모 밑변과 같은 높이 */
+  .site-footer{height:calc(50vh - 376.1*var(--vu) - 16.2*var(--u) + 420*var(--u)) !important;}
+  .site-footer .f-mark{--u:calc(100vw / 1920 * .942); right:auto !important; bottom:auto !important; left:calc(99.96 * 100vw / 1920) !important; top:calc(-186.2 * 100vw / 1920) !important; width:calc(1800 * 100vw / 1920); height:calc(720 * 100vw / 1920);}
 }
 @media (max-width:680px){ .site-footer{padding-top:24px;} }
 </style>
