@@ -2222,6 +2222,24 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 .about-tiles .hero-tile.in{opacity:1; transform:translate(-50%,-50%) scale(1);}
 @media (min-width:681px){ .about-section{padding-bottom:calc(100*var(--u)) !important;} .site-footer{margin-top:0 !important;} }
 </style>
+<style id="ps-1024">
+/* The Object: 판매 페이지 느낌 → 브랜드 오브제 소개. 컬러 버튼 대신 작은 '무드' 견본 */
+.ps-eyebrow{display:flex; align-items:center; gap:calc(12*var(--u)); margin-bottom:calc(24*var(--u)); font-family:var(--grotesk); font-weight:500; font-size:calc(16*var(--u)); line-height:1.25; color:#fff;}
+.ps-eyebrow i{width:calc(14*var(--u)); height:calc(13.2*var(--u)); background:var(--dot);}
+.ps-title{font-size:calc(40*var(--u)) !important; line-height:calc(56*var(--u)) !important; letter-spacing:calc(4*var(--u)) !important; margin-bottom:calc(36*var(--u)) !important;}
+.ps-desc{line-height:1.3 !important; letter-spacing:-0.005em !important; color:#9C9C9C !important;}
+.ps-color-label{font-family:var(--grotesk) !important; font-weight:500; font-size:calc(14*var(--u)) !important; letter-spacing:.02em !important; text-transform:none !important; color:#fff !important;}
+.ps-color-label::first-letter{text-transform:uppercase;}
+.ps-pills{gap:calc(28*var(--u)) !important;}
+.ps-pills .ps-mood{min-width:0 !important; padding:0 !important; background:none !important; border:0 !important; box-shadow:none !important; gap:calc(10*var(--u)); align-items:center; opacity:.45; transition:opacity .35s ease;}
+.ps-pills .ps-mood::before,.ps-pills .ps-mood::after{display:none !important;}
+.ps-pills .ps-mood i{display:block; width:calc(14*var(--u)); height:calc(14*var(--u)); flex:none; outline:1px solid rgba(255,255,255,.25); outline-offset:calc(3*var(--u));}
+.ps-pills .ps-mood span{display:flex; flex-direction:column; align-items:flex-start; font-family:var(--grotesk) !important; font-weight:500; font-size:calc(14*var(--u)) !important; line-height:1.25 !important; letter-spacing:0 !important; text-transform:none !important; color:#fff !important;}
+.ps-pills .ps-mood em{font-style:normal; color:#9C9C9C;}
+.ps-pills .ps-mood.active,.ps-pills .ps-mood:hover{opacity:1;}
+.ps-pills .ps-mood.active i{outline-color:#fff;}
+@media (max-width:680px){ .ps-title{font-size:20px !important; line-height:28px !important;} .ps-desc br{display:none;} .ps-pills .ps-mood span{font-size:12px !important;} }
+</style>
 </head>
 <body>
 
@@ -2344,14 +2362,15 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 <section class="ps" id="productShowcase">
   <div class="ps-visual" id="psVisual"></div>
   <div class="ps-info">
-    <h2 class="ps-title">HIN Product</h2>
-    <p class="ps-desc">HIN focuses on the moments we often overlook in the rhythm of everyday life. By removing unnecessary elements and focusing on what truly matters, HIN creates products that connect naturally with the way we live. Designed to bring together function, form and experience.</p>
-    <p class="ps-desc-kr">일상의 리듬 속에서 지나치기 쉬운 순간에 집중합니다. 불필요한 것을 덜어내고, 기능과 형태와 경험을 하나로 모았습니다.</p>
-    <div class="ps-color-label">Color</div>
+    <div class="ps-eyebrow"><i></i>The Object</div>
+    <h2 class="ps-title">One hinge.<br>Every place.</h2>
+    <p class="ps-desc">A stand, a light and a surface, folded into a single object.<br>Built around one quiet hinge, HIN opens into the same work state<br>wherever you sit, and folds away when you are done.</p>
+    <p class="ps-desc-kr">하나의 경첩에서 시작된 형태.<br>펼치면 작업 공간이 되고, 접으면 하나의 오브제가 됩니다.</p>
+    <div class="ps-color-label">Three moods</div>
     <div class="ps-pills" id="psColorPills">
-      <button class="hv-btn active" data-color="" type="button" aria-pressed="true"><span>Gray</span></button>
-      <button class="hv-btn" data-color="#1E1D1B" type="button" aria-pressed="false"><span>Black</span></button>
-      <button class="hv-btn" data-color="#FFFBA6" type="button" aria-pressed="false"><span>Yellow</span></button>
+      <button class="hv-btn ps-mood active" data-color="" type="button" aria-pressed="true"><i style="background:#8B8B87"></i><span>Gray<em>Focus</em></span></button>
+      <button class="hv-btn ps-mood" data-color="#1E1D1B" type="button" aria-pressed="false"><i style="background:#1E1D1B"></i><span>Black<em>Night</em></span></button>
+      <button class="hv-btn ps-mood" data-color="#FFFBA6" type="button" aria-pressed="false"><i style="background:#FFFBA6"></i><span>Yellow<em>Signal</em></span></button>
     </div>
   </div>
 </section>
