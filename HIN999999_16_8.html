@@ -2092,9 +2092,6 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   #infoPanel .col .info-desc{margin-top:calc(2*var(--u));}
   /* 매니페스토 오른쪽 설명 */
   .pr-line .half.r{line-height:1.25 !important; letter-spacing:-0.01em !important;}
-  /* 캠페인 카드 */
-  .slider.first .s-addr{line-height:1.25 !important; letter-spacing:-0.01em;}
-  .slider.first .s-desc{line-height:1.25 !important; letter-spacing:-0.01em; margin-top:calc(6*var(--u));}
   /* 매거진 */
   .mag-ch .sub{line-height:1.25 !important; letter-spacing:-0.01em;}
   .mag-ui{line-height:1.25 !important; letter-spacing:-0.005em !important;}
@@ -2105,6 +2102,14 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   .about-address div,.about-focus div{line-height:1.25 !important; letter-spacing:-0.005em !important;}
   .about-address > div:last-child,.about-focus > div:last-child{line-height:1.25 !important;}
   .about-label{letter-spacing:-0.005em !important;}
+}
+</style>
+<style id="about-list-1024">
+/* About: 레퍼런스처럼 — 흰 제목 + 회색 내용, 대문자 해제, 촘촘한 목록 */
+@media (min-width:681px){
+  .about-label{color:#fff !important; font-weight:500;}
+  .about-address > div:last-child,.about-focus > div:last-child{color:#9C9C9C !important; text-transform:none !important; font-weight:500;}
+  .about-body p{color:#9C9C9C !important;}
 }
 </style>
 </head>
