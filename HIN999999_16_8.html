@@ -2072,6 +2072,10 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 .mag-ch .title{font-family:var(--grotesk); font-weight:500; text-transform:uppercase; letter-spacing:-0.01em;}
 .mag-ch .sub{font-family:var(--grotesk); font-weight:400; letter-spacing:0;}
 .mag-ch .eyebrow{font-family:var(--grotesk); font-weight:500; letter-spacing:calc(2*var(--u));}
+/* 매거진 뒤 선: 더 얇고 연하게 + 사진 위를 지나면 색이 반전 (네모와 같은 효과) */
+.mag-lines{mix-blend-mode:difference;}
+.mag-lines line,.mag-lines ellipse,.mag-lines path,.mag-lines rect{stroke:#4A4A4A !important; stroke-width:.6 !important;}
+.mag-lines .node{fill:none !important; stroke:#6A6A6A !important;}
 /* 네 모서리 UI도 Aeonik */
 .mag-ui{font-family:var(--grotesk) !important; font-weight:500; letter-spacing:calc(1.5*var(--u)) !important;}
 @media (min-width:681px){
