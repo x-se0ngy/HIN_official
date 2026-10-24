@@ -1963,6 +1963,18 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 /* 01:CAFÉ — 콜론 앞뒤 간격 좁게 (픽셀 폰트는 글자 칸이 넓어서 공백 대신 여백으로 조절) */
 .s-title .colon{display:inline-block; margin:0 calc(-4.6*var(--u)) 0 calc(-6.7*var(--u));}
 @media (max-width:680px){ .slider.first .s-card-inner{padding:18px; gap:18px;} .s-desc{font-size:13px; line-height:20px;} }
+
+/* 카드 전체 약 80% 크기 (버튼·글자·여백 같이 축소) */
+@media (min-width:681px){
+  .slider.first .s-card-wrap{width:calc(476*var(--u));}
+  .slider.first .s-card-inner{width:calc(444*var(--u)); padding:calc(27*var(--u)) 0; gap:calc(27*var(--u));}
+  .slider.first .s-title{font-size:calc(28.2*var(--u)); line-height:calc(40*var(--u)); letter-spacing:calc(3.2*var(--u));}
+  .slider.first .s-addr{font-size:calc(16.6*var(--u)); line-height:calc(32*var(--u));}
+  .slider.first .s-desc{font-size:calc(16.6*var(--u)); line-height:calc(24*var(--u));}
+  .slider.first .s-btn{padding:calc(16*var(--u)) calc(54*var(--u)); gap:calc(37*var(--u));}
+  .slider.first .s-btn span{font-size:calc(16.6*var(--u)); line-height:calc(48*var(--u)); letter-spacing:calc(4*var(--u));}
+  .slider.first .s-btn svg{width:calc(36.8*var(--u)); height:calc(36.8*var(--u));}
+}
 </style>
 <style id="dots-color-1023">
 /* 화면 양옆 작은 네모: 정보 텍스트와 같은 그레이 */
