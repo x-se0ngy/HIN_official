@@ -2336,15 +2336,58 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
 <style id="nav-1025">
 /* 목차: 상단 오른쪽, 왼쪽 문구 두 줄과 같은 줄에 MAIN / SHOP 세로로 (오른쪽 바깥 네모 끝선 정렬) */
 @media (min-width:681px){
-  .nav{position:absolute; top:calc(48.5*var(--u)); right:calc(58.7*var(--u)); transform:none !important;
+  .nav{position:absolute; top:calc(51*var(--u)); right:calc(58.7*var(--u)); transform:none !important;
     flex-direction:column; align-items:flex-start; gap:0 !important; width:auto !important;}
-  .nav a{padding:0 !important; line-height:calc(16*var(--u)) !important; height:calc(16*var(--u));}
+  .nav a{padding:0 !important; font-size:max(calc(9*var(--u)),7px) !important; letter-spacing:calc(1.8*var(--u)) !important;
+    line-height:max(calc(9*var(--u)),7px) !important; height:max(calc(9*var(--u)),7px); gap:calc(7*var(--u)) !important;}
+  .nav{row-gap:max(calc(25*var(--u) - 2*max(calc(9*var(--u)),7px)), 2px) !important;}
+  .nav a .nav-sq{width:calc(5*var(--u)) !important; height:calc(5*var(--u)) !important; min-width:4px; min-height:4px;}
   /* 흐르는 문구는 목차 앞에서 흐려지며 끝나도록 (비율 유지, 길이만 짧게) */
   .tagline{width:calc(1435*var(--u)) !important;}
   .tag-layer.sharp{-webkit-mask-image:linear-gradient(to right,#000 0,#000 calc(1086*var(--u)),transparent calc(1276*var(--u)));
           mask-image:linear-gradient(to right,#000 0,#000 calc(1086*var(--u)),transparent calc(1276*var(--u)));}
   .tag-layer.soft{-webkit-mask-image:linear-gradient(to right,transparent 0,transparent calc(1086*var(--u)),#000 calc(1276*var(--u)),#000 calc(1382*var(--u)),transparent 100%);
           mask-image:linear-gradient(to right,transparent 0,transparent calc(1086*var(--u)),#000 calc(1276*var(--u)),#000 calc(1382*var(--u)),transparent 100%);}
+}
+</style>
+<style id="info-color3-1025">
+/* 홈 COLOR: 견본은 옆 칸 본문 1줄 높이 안에, 설명은 2줄째와 같은 줄에 */
+@media (min-width:681px){
+#infoPanel .col-color .hv-row{gap:calc(2*var(--u)) !important;}
+#infoPanel .col-color .hv-swatches{height:calc(19.375*var(--u)); align-items:center; gap:calc(8*var(--u)) !important;}
+#infoPanel .col-color .hv-swatch{width:calc(16*var(--u)) !important; height:calc(16*var(--u)) !important; box-shadow:inset 0 0 0 calc(3*var(--u)) #0a0a0a, 0 0 0 1px rgba(255,255,255,.35) !important;}
+#infoPanel .col-color .hv-swatch.active{box-shadow:inset 0 0 0 calc(3*var(--u)) #0a0a0a, 0 0 0 calc(1.5*var(--u)) var(--dot) !important;}
+}
+</style>
+<style id="mobile-1025">
+/* ===== 모바일 정리 ===== */
+@media (max-width:680px){
+  /* 가로 넘침은 clip으로 막기 (hidden은 sticky 고정을 깨뜨림) */
+  html,body{overflow-x:clip !important; overflow-y:visible;}
+  html{overflow-y:auto;}
+
+  /* 헤더: MAIN / SHOP을 로고와 같은 줄 오른쪽에 */
+  .site-header{padding:0 !important; height:0; overflow:visible;}
+  .nav{position:fixed !important; top:9px; right:12px; transform:none !important; width:auto !important; gap:16px !important;}
+  .nav a{padding:0 !important; font-size:9px !important; line-height:17px !important; letter-spacing:1.2px !important; gap:5px !important;}
+  .nav a .nav-sq{width:4px !important; height:4px !important; min-width:4px; min-height:4px;}
+
+  /* 선언문: 왼쪽(픽셀) 위, 오른쪽(본문) 아래로 쌓기 → 겹침 없음 */
+  #productRise .pr-line{flex-direction:column; align-items:center; justify-content:flex-start; gap:12px;}
+  #productRise .half{width:100% !important; text-align:center !important;}
+  #productRise .half.l, #productRise .half.l .ln{font-size:15px; line-height:21px; text-align:center !important;}
+  #productRise .half.r, #productRise .half.r .ln{font-family:var(--grotesk); text-transform:none; font-size:13px; line-height:18px; color:#C9C9C9; text-align:center !important; letter-spacing:0;}
+  #productRise .ln{width:auto !important;}
+
+  /* 매거진: 챕터 글 크기 정리, 양옆 라벨은 위·아래 구석으로 */
+  .mag-chapters{width:88vw !important; height:200px !important;}
+  .mag-ch .eyebrow{font-size:10px !important; line-height:14px !important; letter-spacing:1.5px !important; gap:6px !important; margin-bottom:8px !important;}
+  .mag-ch .eyebrow i{width:6px !important; height:6px !important;}
+  .mag-ch .title{font-size:22px !important; letter-spacing:1.5px !important; line-height:1.15 !important; white-space:normal !important;}
+  .mag-ch .sub{font-size:12px !important; line-height:1.4 !important; margin-top:8px !important;}
+  .mag-ch .note{font-size:10px !important; margin-top:6px !important;}
+  .mag-ui.tl{top:52px !important; left:12px !important; bottom:auto !important; transform:none !important; font-size:10px !important;}
+  .mag-ui.bl{top:52px !important; bottom:auto !important; left:auto !important; right:12px !important; transform:none !important; text-align:right; font-size:10px !important;}
 }
 </style>
 </head>
