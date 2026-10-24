@@ -1958,8 +1958,11 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 .s-title .acc{position:relative; display:inline-block;}
 .s-title .acc::after{content:""; position:absolute; left:55%; top:-.02em; width:.2em; height:.09em; background:currentColor; transform:skewY(-35deg);}
 .slider.first .s-addr{color:#fff;}
-.s-desc{margin:calc(10*var(--u)) 0 0; font-family:var(--grotesk); font-weight:500; font-size:calc(16*var(--u)); line-height:calc(26*var(--u)); color:var(--gray-500); max-width:calc(480*var(--u));}
-@media (max-width:680px){ .slider.first .s-card-inner{padding:18px; gap:18px;} .s-desc{font-size:12px; line-height:18px; margin-top:4px;} }
+/* 설명: 부제목과 같은 폰트·크기 */
+.s-desc{margin:0; font-family:var(--grotesk); font-size:calc(20.76*var(--u)); line-height:calc(30*var(--u)); color:var(--gray-500);}
+/* 01:CAFÉ — 콜론 앞뒤 간격 좁게 (픽셀 폰트는 글자 칸이 넓어서 공백 대신 여백으로 조절) */
+.s-title .colon{display:inline-block; margin:0 calc(-7.3*var(--u)) 0 calc(-6.7*var(--u));}
+@media (max-width:680px){ .slider.first .s-card-inner{padding:18px; gap:18px;} .s-desc{font-size:13px; line-height:20px;} }
 </style>
 <style id="dots-color-1023">
 /* 화면 양옆 작은 네모: 정보 텍스트와 같은 그레이 */
@@ -2091,7 +2094,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   <button type="button" class="s-arrow next" aria-label="다음"><svg viewBox="0 0 69 69" fill="none" aria-hidden="true"><path d="M19.182 56.5508L26.8021 56.5508L45.701 37.6548L45.701 31.2486L26.8021 12.3497L19.182 12.3497L19.182 8.32937L28.4674 8.33217L49.6652 29.53L49.7185 29.53L49.7185 39.3173L28.4674 60.5712L19.182 60.5712L19.182 56.5508Z" fill="white"/></svg></button>
   <div class="s-card-wrap">
     <div class="s-card"><div class="s-card-inner">
-      <div><p class="s-title">01 : Caf<span class="acc">e</span></p><p class="s-addr">A New Place, The Same Flow.</p><p class="s-desc">From morning coffee to focused afternoons, HIN keeps your workspace familiar wherever you go.</p></div>
+      <div><p class="s-title">01<span class="colon">:</span>Caf<span class="acc">e</span></p><p class="s-addr">A New Place, The Same Flow.</p><p class="s-desc">From morning coffee to focused afternoons, HIN keeps your workspace familiar wherever you go.</p></div>
       <a class="s-btn" href="#"><span>DISCOVER MORE</span><svg viewBox="0 0 47 47" fill="none" aria-hidden="true"><path d="M19.9216 8.25556H25.0168L37.647 20.8858V21.7009H5.71917V24.3881H37.647V25.1677L25.0149 37.7998H19.9216V40.4851H26.128L40.2986 26.3145H40.3342V19.7727L26.128 5.56836H19.9216V8.25556Z" fill="#FCFCFC"/></svg></a>
     </div></div>
     <div class="s-dots"><button type="button" class="on" aria-label="1번째 슬라이드"></button><button type="button" class="" aria-label="2번째 슬라이드"></button><button type="button" class="" aria-label="3번째 슬라이드"></button></div>
