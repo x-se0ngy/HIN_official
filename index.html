@@ -2388,6 +2388,48 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
   .mag-ch .note{font-size:10px !important; margin-top:6px !important;}
   .mag-ui.tl{top:52px !important; left:12px !important; bottom:auto !important; transform:none !important; font-size:10px !important;}
   .mag-ui.bl{top:52px !important; bottom:auto !important; left:auto !important; right:12px !important; transform:none !important; text-align:right; font-size:10px !important;}
+
+  /* 슬라이더 아래 흰 줄: 바탕을 검정으로, 그늘을 살짝 아래까지 */
+  .slider{background:#000 !important;}
+  .slide-shade{bottom:-2px !important;}
+
+  /* 홈: 제품은 위로, 정보는 화면 아래에 — 서로 겹치지 않게 */
+  .hero-pin-wrap .hero{top:56px !important;}
+  .hero{margin-top:56px !important;}
+  .hero-pin-wrap{height:calc(1060*var(--u) + 56px + 90vh) !important;}
+  .info-panel#infoPanel{bottom:calc(24px + env(safe-area-inset-bottom)) !important; gap:16px !important;}
+  #infoPanel .col-label{display:flex !important; align-items:center; gap:8px; margin-bottom:6px !important;
+    font-family:var(--grotesk) !important; font-weight:500; font-size:12px !important; line-height:16px !important; letter-spacing:.02em !important; text-transform:uppercase; color:#fff !important;}
+  #infoPanel .col-label::before{content:""; width:8px; height:8px; background:var(--dot); flex:none;}
+  #infoPanel .col{font-size:12.5px !important; line-height:19px !important; letter-spacing:.2px !important; color:#C9C9C9 !important;}
+  #infoPanel .col .info-desc{margin-top:0 !important;}
+  #infoPanel .col-color .hv-row{gap:0 !important;}
+  #infoPanel .col-color .hv-swatches{height:19px; align-items:center; gap:6px !important;}
+  #infoPanel .col-color .hv-swatch{width:14px !important; height:14px !important; box-shadow:inset 0 0 0 2px #0a0a0a, 0 0 0 1px rgba(255,255,255,.35) !important;}
+  #infoPanel .col-color .hv-swatch.active{box-shadow:inset 0 0 0 2px #0a0a0a, 0 0 0 1px var(--dot) !important;}
+  #infoPanel .col-color .hv-index{font-size:12.5px !important; line-height:19px !important; letter-spacing:.2px !important; color:#C9C9C9 !important;}
+
+  /* 선언문: 제목은 사진 위, 설명은 사진 아래 */
+  .product-rise{height:230vh !important;}
+  #productRise .pr-sticky{justify-content:center !important; padding:0 !important;}
+  #productRise .pr-line .half.r{z-index:3;}
+  #productRise .pr-visual{height:42vh !important;}
+  #productRise .pr-headline{position:absolute !important; top:0 !important; left:0 !important; right:0 !important; bottom:0 !important; height:auto !important; max-width:none !important; margin:0 !important;}
+  #productRise .pr-line{position:absolute !important; inset:0 !important; display:block !important;}
+  #productRise .pr-line .half{position:absolute !important; left:20px !important; right:20px !important; width:auto !important; transform:none !important; white-space:normal !important; text-align:center !important;}
+  #productRise .pr-line .half.l{top:auto !important; bottom:calc(71vh + 18px) !important;}
+  #productRise .pr-line .half.r{top:calc(71vh + 18px) !important;}
+
+  /* 3번(병풍) 섹션: 앞뒤 검은 여백 줄이기 — 고정 영역을 화면 가운데 60%로 */
+  .hinge-gallery{height:130vh !important;}
+  .hg-pin{top:20vh !important; height:60vh !important;}
+
+  /* About · Studio · What we make: 같은 형식으로 통일 (노랑 네모 + 흰 제목, 회색 본문) */
+  .about-label{font-family:var(--grotesk) !important; font-weight:500 !important; font-size:12px !important; line-height:16px !important; letter-spacing:.02em !important; text-transform:uppercase !important; color:#fff !important; gap:8px !important; margin-bottom:10px !important;}
+  .about-label i{width:8px !important; height:8px !important; background:var(--dot) !important;}
+  .about-body p, .about-address > div:last-child, .about-focus > div:last-child{font-family:var(--grotesk) !important; font-weight:500 !important; font-size:12.5px !important; line-height:19px !important; letter-spacing:.2px !important; text-transform:none !important; text-indent:0 !important; color:#C9C9C9 !important;}
+  .about-body p{margin:0 0 12px !important;}
+  .about-grid{gap:32px !important;}
 }
 </style>
 </head>
@@ -3940,7 +3982,7 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
     const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
     const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, MAX=24;
     let cur=null, raf=0, on=false;
-    const target=()=>{ if(reduce) return 1; const r=sec.getBoundingClientRect(); const H=innerHeight, open=clamp((H*.1 - r.top)/(H*1.1),0,1), close=clamp((r.bottom - H*.4)/(H*1.2),0,1); return Math.min(open,close); /* 들어올 때 펴지고, 올라가며 나갈 때 다시 접힘 */ };
+    const target=()=>{ if(reduce) return 1; const r=sec.getBoundingClientRect(); const H=innerHeight; if(innerWidth<=680){ return Math.min(clamp((H - r.top)/(H*.8),0,1), clamp(r.bottom/(H*.8),0,1)); } const open=clamp((H*.1 - r.top)/(H*1.1),0,1), close=clamp((r.bottom - H*.4)/(H*1.2),0,1); return Math.min(open,close); /* 들어올 때 펴지고, 올라가며 나갈 때 다시 접힘 */ };
     const draw=p=>{ const th=MAX*(1-ease(p)), rad=th*Math.PI/180, W=stage.offsetWidth;
       ps.forEach((el,i)=>{ const a = i===0 ? th : (i%2 ? -2*th : 2*th); el.style.transform=`rotateY(${a}deg)`;
         sh[i].style.opacity=(Math.sin(rad)*(i%2?0.12:0.5)).toFixed(3); });
