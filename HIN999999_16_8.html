@@ -1362,7 +1362,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   /* =========================================================
      HIN MAGAZINE — 3D 이미지 스택 (스크롤 연동 포메이션)
      ========================================================= */
-  .mag{position:relative; margin-top:calc(240*var(--u)); height:700vh; background:#000;}
+  .mag{position:relative; margin-top:calc(240*var(--u)); height:460vh; background:#000;}
   .mag-pin{position:sticky; top:0; height:100vh; overflow:hidden;}
   .mag-stage{position:absolute; inset:0; perspective:1400px; perspective-origin:50% 50%;}
   .mag-card{position:absolute; left:50%; top:50%; margin:0; background-size:cover; background-position:center; will-change:transform;
@@ -1399,7 +1399,7 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   .mag-tag i{width:calc(12*var(--u)); height:calc(12*var(--u)); border:1px solid #D7D8DA;}
   .mag-tag.on i{background:var(--dot); border-color:var(--dot);}
   @media (max-width:680px){
-    .mag{margin-top:80px; height:600vh;}
+    .mag{margin-top:80px; height:400vh;}
     .mag-stage{perspective:900px;}
     .mag-chapters{width:92vw; height:160px;}
     .mag-ch .eyebrow{font-size:10px; letter-spacing:2px; gap:6px; margin-bottom:8px;} .mag-ch .eyebrow i{width:8px; height:8px;}
@@ -2246,45 +2246,35 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
         <line x1="500" y1="60" x2="500" y2="940"/>
         <rect class="node" x="495" y="285" width="10" height="10"/><rect class="node" x="495" y="705" width="10" height="10"/>
       </g>
-      <g data-f="3">
-        <line x1="90" y1="60" x2="90" y2="940"/>
-        <path d="M80 120h20M80 300h20M80 480h20M80 660h20M80 840h20"/>
-        <path d="M90 180H300M90 400H240M90 620H360M90 840H420" class="dash"/>
-        <rect class="node" x="85" y="175" width="10" height="10"/><rect class="node" x="85" y="615" width="10" height="10"/>
-      </g>
+      
       <g data-f="5">
         <ellipse cx="500" cy="500" rx="360" ry="120" class="dash"/>
         <ellipse cx="500" cy="500" rx="440" ry="180"/>
         <line x1="60" y1="500" x2="940" y2="500" class="dash"/>
         <rect class="node" x="855" y="495" width="10" height="10"/><rect class="node" x="135" y="495" width="10" height="10"/>
       </g>
-      <g data-f="4">
-        <ellipse cx="500" cy="520" rx="420" ry="150" class="dash"/>
-        <line x1="120" y1="880" x2="880" y2="160"/>
-        <line x1="500" y1="80" x2="500" y2="940" class="dash"/>
-        <rect class="node" x="495" y="515" width="10" height="10"/>
-      </g>
+      
     </svg>
 
     <div class="mag-chapters" id="magChapters">
       <div class="mag-ch on"><div class="eyebrow"><i></i>Chapter 01</div><div class="title">무게를 줄이다</div><div class="sub">본체 무게 1.2kg, 손끝에서 가벼워진 작업</div></div>
       <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 02</div><div class="title">접어서, 가볍게</div><div class="sub">한 번의 접힘으로 완성되는 이동 형태</div></div>
       <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 03</div><div class="title">어디서든 펼치다</div><div class="sub">책상, 카페, 창가 — 장소를 가리지 않는 워크스페이스</div></div>
-      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 04</div><div class="title">흩어진 것들을 하나로</div><div class="sub">케이블, 소품, 도구를 한 자리에 정리하는 구조</div></div>
-      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 05</div><div class="title">손끝에서 완성되다</div><div class="sub">마감의 질감이 손에 먼저 닿는 디테일</div></div>
-      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 06</div><div class="title">다시, 제자리로</div><div class="sub">하루의 끝, 접어서 제자리에 놓는 루틴</div></div>
+      
+      
+      <div class="mag-ch"><div class="eyebrow"><i></i>Chapter 04</div><div class="title">다시, 제자리로</div><div class="sub">하루의 끝, 접어서 제자리에 놓는 루틴</div></div>
     </div>
 
     <div class="mag-ui tl">HIN Magazine<br>Issue 01</div>
     <div class="mag-ui tr">2026<br>Here I Am Now</div>
     <div class="mag-ui bl">Digital nomad<br>workers &amp; creators</div>
-    <div class="mag-ui br" id="magCount">01 / 06</div>
+    <div class="mag-ui br" id="magCount">01 / 04</div>
 
     <div class="mag-tag" style="left:calc(234*var(--u)); top:38%;" data-t="0"><i></i>The state-keeping issue</div>
     <div class="mag-tag" style="right:calc(234*var(--u)); top:62%;" data-t="1"><i></i>Here, I am, Now.</div>
     <div class="mag-tag" style="left:calc(234*var(--u)); top:66%;" data-t="2"><i></i>Between meetings</div>
-    <div class="mag-tag" style="right:calc(234*var(--u)); top:30%;" data-t="3"><i></i>Should move with your workspace</div>
-    <div class="mag-tag" style="left:calc(234*var(--u)); top:30%;" data-t="4"><i></i>Where the journey becomes a session</div>
+    
+    
     <div class="mag-tag" style="right:calc(234*var(--u)); top:70%;" data-t="5"><i></i>Here I am now</div>
   </div>
 </section>
@@ -3200,7 +3190,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     const groups=[...sec.querySelectorAll('.mag-lines g')], tags=[...sec.querySelectorAll('.mag-tag')];
     const titles=[...document.querySelectorAll('#magChapters .mag-ch')], count=document.getElementById('magCount');
     const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const F=6, lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
+    const F=4, lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
     const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
     let W=innerWidth, H=innerHeight, cw, ch;
     const size=()=>{ W=innerWidth; H=innerHeight; cw=Math.min(W*(W<680?.34:.15), H*.3); ch=cw*1.292;
@@ -3229,12 +3219,6 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
         if(!side) return {x:cx, y:cy, z:0, rx:4, ry:Math.sin(t*.2+g)*3, rz:0, s};
         const th=(16+4*Math.sin(t*.22+g*.9))*Math.PI/180;
         return {x:cx+side*Math.cos(th)*half, y:cy, z:-Math.sin(th)*half, rx:4, ry:-side*(th*180/Math.PI), rz:0, s}; },
-      // 04 계단형 층 — 아래로 넓어지며 거의 멈춰 있음
-      (i,t)=>{ const u=i/(n-1);
-        return {x:0, y:lerp(-H*.4,H*.44,u), z:0, rx:62, ry:Math.sin(t*.12)*4, rz:0, s:.45+u*1.0}; },
-      // 05 평행 팬 — 나란히 선 페이지가 느리게 지나감
-      (i,t)=>{ const k=wrap(i/n+t*.008);
-        return {x:lerp(-W*.52,W*.48,k), y:lerp(H*.12,-H*.1,k), z:lerp(260,-800,k), rx:-3, ry:-52, rz:0, s:1.05}; },
       // 06 궤도 링 — 가운데를 중심으로 천천히 도는 원
       (i,t)=>{ const a=(i/n)*Math.PI*2+t*.06, R=W<680?W*.42:W*.32;
         return {x:Math.sin(a)*R, y:Math.cos(a)*H*.05, z:Math.cos(a)*R*.85-200, rx:-6, ry:a*180/Math.PI, rz:0, s:.9}; }
