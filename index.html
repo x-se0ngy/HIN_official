@@ -2235,7 +2235,10 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 </style>
 <style id="info-color-1024">
 /* 컬러 선택을 홈 정보 CONCEPT 칸 아래로 */
-#infoPanel .info-color{margin-top:calc(18*var(--u)); pointer-events:auto;}
+#infoPanel .info-color{margin-top:0; pointer-events:auto;}
+/* CONCEPT 자리 = COLOR: 견본 줄 높이를 옆 칸 본문 2줄 높이에 맞춤 */
+#infoPanel .col-color .hv-row{height:calc(44*var(--u)); align-items:center; gap:calc(22*var(--u));}
+#infoPanel .col-color .hv-swatches{gap:calc(12*var(--u));}
 #infoPanel .info-color .hv-index{color:#9C9C9C; font-size:calc(13.5*var(--u)); line-height:calc(22*var(--u));}
 #infoPanel .info-color .hv-swatch{width:calc(20*var(--u)); height:calc(20*var(--u));}
 @media (max-width:680px){ #infoPanel .info-color{margin-top:10px;} #infoPanel .info-color .hv-swatch{width:14px; height:14px;} #infoPanel .info-color .hv-index{font-size:10px;} }
@@ -2305,7 +2308,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 <div class="info-panel" id="infoPanel">
   <div class="col"><div class="col-label">BRAND</div><div>HIN : Here I Am Now</div><div class="info-desc">Designed for the way we work today.</div></div>
   <div class="col"><div class="col-label">PROJECT INFO</div><div>Portable Workspace System, 2026</div><div class="info-desc">One seamless setup, wherever you go.</div></div>
-  <div class="col"><div class="col-label">CONCEPT</div><div>Different Places. Same Flow.</div><div class="info-desc">Stay connected to your work, anywhere.</div><div class="hv-color info-color">
+  <div class="col col-color"><div class="col-label">COLOR</div><div class="hv-color info-color">
       <div class="hv-row">
         <div class="hv-swatches" id="colorSwatches">
           <button class="hv-swatch active" data-color="" data-label="GRAY" style="background:#8B8B87;" title="Gray" aria-label="그레이" type="button"></button>
