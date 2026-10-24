@@ -2292,6 +2292,37 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 @media (max-width:680px){ .s-next-peek{display:none;} .slider .s-arrow.next{opacity:1;} }
 @media (prefers-reduced-motion:reduce){ .slider .slide{transition:none !important;} }
 </style>
+<style id="ux2-1025">
+/* 1) 다음 장 미리보기 글자: 반전 효과로 흰 사진 위에서도 보이게 */
+.s-next-peek{z-index:auto !important; transform:none !important; top:calc(50% - 24*var(--u)) !important;}
+.s-next-peek span{color:#fff; mix-blend-mode:difference;}
+.s-next-peek em{color:#fff !important; opacity:.75;}
+/* 2) 슬라이드 표시: 진행 막대 → 원래 정사각형 점 */
+@media (min-width:681px){
+  .slider.first .s-dots,.slider.second .s-dots{gap:calc(22*var(--u)) !important;}
+  .slider.first .s-dots button,.slider.second .s-dots button{width:calc(11*var(--u)) !important; height:calc(11*var(--u)) !important; background:rgba(255,255,255,.35) !important; overflow:visible;}
+  .slider.first .s-dots button::after,.slider.second .s-dots button::after{display:none !important;}
+  .slider.first .s-dots button.on,.slider.second .s-dots button.on{background:var(--dot) !important;}
+}
+/* 3) 맨 위로 버튼: 원 → 작은 정사각형 */
+#toTopBtn{width:40px !important; height:40px !important; border-radius:0 !important;}
+#toTopBtn svg{width:18px !important;}
+@media (max-width:640px){ #toTopBtn{width:36px !important; height:36px !important;} #toTopBtn svg{width:15px !important;} }
+/* 4) 모델 슬라이더 카드: 캠페인 카드처럼 오른쪽 여백 */
+@media (min-width:681px){
+  .slider.second .s-card-wrap{width:calc(560*var(--u)) !important;}
+  .slider.second .s-card-inner{width:calc(528*var(--u)) !important;}
+}
+/* 5) 캠페인: 오른쪽도 왼쪽과 같은 화살표 (미리보기 대신) */
+.slider.first .s-next-peek{display:none !important;}
+.slider.first .s-arrow.next{opacity:1 !important;}
+/* 6) 상단 메뉴: 작은 네모 + MAIN / SHOP, 지금 보고 있는 쪽이 노랑 */
+.nav a{gap:calc(8*var(--u));}
+.nav a .nav-sq{display:inline-block; width:calc(7*var(--u)); height:calc(7*var(--u)); min-width:5px; min-height:5px; background:currentColor; mix-blend-mode:difference; flex:none;}
+html:not([data-view="shop"]) #navAbout span, html:not([data-view="shop"]) #navAbout .nav-sq,
+html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{color:var(--dot);}
+#navAbout .nav-sq,#navShop .nav-sq{background:currentColor;}
+</style>
 </head>
 <body>
 
@@ -2915,8 +2946,8 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 <header class="site-header">
 <nav class="nav">
     
-<a href="#" id="navAbout" aria-pressed="false"><span>About</span></a>
-<a href="#shop" id="navShop"><span>Shop</span></a>
+<a href="#" id="navAbout" aria-pressed="false"><i class="nav-sq"></i><span>Main</span></a>
+<a href="#shop" id="navShop"><i class="nav-sq"></i><span>Shop</span></a>
   </nav>
 </header>
 
@@ -3078,7 +3109,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     };
     infoBtn.addEventListener('click', showInfo);
     // ABOUT: 패널 대신 메인의 About 섹션으로 스크롤
-    aboutBtn.addEventListener('click', e => { e.preventDefault(); if (document.documentElement.dataset.view!=='home') return; const sec=document.getElementById('aboutSection'); if (sec) sec.scrollIntoView({behavior: reduce?'auto':'smooth', block:'start'}); });
+    aboutBtn.addEventListener('click', e => { e.preventDefault(); if (document.documentElement.dataset.view!=='home') return; scrollTo({top:0, behavior: reduce?'auto':'smooth'}); });
     closeBtn.addEventListener('click', closeAll);
     addEventListener('keydown', e => { if (e.key==='Escape') { closeAll(); if (hero.classList.contains('is-full')) { hero.classList.remove('is-full'); document.body.style.overflow=''; markFull(); } } });
     addEventListener('scroll', () => {
