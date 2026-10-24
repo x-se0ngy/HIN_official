@@ -2260,6 +2260,38 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 /* 순서에서 빠진 섹션은 숨김 (코드는 남겨둠) */
 #productShowcase, section.slogan.mid, section.slogan:not(.mid){display:none !important;}
 </style>
+<style id="ux-1025">
+/* 1) 모델 슬라이더 카드: 흰 사진 위에서도 캠페인 카드와 같은 어두운 톤 */
+.slider.second .s-card{background:rgba(14,14,14,.8) !important;}
+.slider.second .s-btn::before{background:rgba(0,0,0,.88) !important;}
+
+/* 3) 슬라이더: 옆으로 밀리며 넘어감 + 점 대신 진행 막대 (다음 장까지 남은 시간) */
+.slider.first .slide,.slider.second .slide{opacity:1 !important; transform:translateX(100%); transition:transform 1.15s cubic-bezier(.76,0,.24,1); will-change:transform;}
+.slider.first .slide.on,.slider.second .slide.on{transform:none;}
+.slider.first .slide.past,.slider.second .slide.past{transform:translateX(-100%);}
+.slider.first .slide.from-left,.slider.second .slide.from-left{transform:translateX(-100%);}
+.slider.first .slide.to-right,.slider.second .slide.to-right{transform:translateX(100%);}
+.slider.first .slide.no-tr,.slider.second .slide.no-tr{transition:none !important;}
+.slider.first .slide img,.slider.second .slide img{transform:scale(1.06); transition:transform 1.6s cubic-bezier(.22,1,.36,1);}
+.slider.first .slide.on img,.slider.second .slide.on img{transform:none;}
+@media (min-width:681px){
+  .slider.first .s-dots,.slider.second .s-dots{gap:calc(10*var(--u)) !important; align-items:center;}
+  .slider.first .s-dots button,.slider.second .s-dots button{position:relative; width:calc(46*var(--u)) !important; height:calc(3*var(--u)) !important; background:rgba(255,255,255,.28) !important; overflow:hidden;}
+  .slider.first .s-dots button::after,.slider.second .s-dots button::after{content:""; position:absolute; inset:0; background:var(--dot); transform:scaleX(0); transform-origin:0 50%;}
+  .slider.first .s-dots button.done::after,.slider.second .s-dots button.done::after{transform:scaleX(1); opacity:.55;}
+  .slider.first .s-dots button.on::after,.slider.second .s-dots button.on::after{animation:sProg var(--dur,5s) linear forwards;}
+  .slider .s-dots.paused button.on::after{animation-play-state:paused;}
+}
+@keyframes sProg{to{transform:scaleX(1);}}
+/* 다음 장 미리보기: 오른쪽 화살표 옆 작은 썸네일 + 숫자 */
+.s-next-peek{position:absolute; z-index:6; right:calc(135.8*var(--u)); top:50%; transform:translateY(-50%); display:flex; align-items:center; gap:calc(12*var(--u)); pointer-events:none;
+  font-family:var(--grotesk); font-weight:500; font-size:calc(13*var(--u)); line-height:1.25; color:#fff; text-align:right;}
+.s-next-peek i{display:block; width:calc(72*var(--u)); height:calc(48*var(--u)); background-size:cover; background-position:center; outline:1px solid rgba(255,255,255,.5); transition:background-image .3s;}
+.s-next-peek em{font-style:normal; color:rgba(255,255,255,.7);}
+.slider .s-arrow.next{opacity:0;}
+@media (max-width:680px){ .s-next-peek{display:none;} .slider .s-arrow.next{opacity:1;} }
+@media (prefers-reduced-motion:reduce){ .slider .slide{transition:none !important;} }
+</style>
 </head>
 <body>
 
@@ -3120,14 +3152,25 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     ];
     const tiles=specs.map(s=>{ const el=document.createElement('div'); el.className='hero-tile'; el.style.width=s.w+'px'; el.style.height=s.h+'px'; el.style.backgroundImage=`url("${s.img}")`; wrap.appendChild(el); return {el, timer:null}; });
     let i=0, last=0;
-    const place=(x,y)=>{ const now=performance.now(); if(now-last<130) return; last=now;
+    const place=(x,y)=>{ const now=performance.now(); if(now-last<80) return; last=now;
       const s=tiles[i]; i=(i+1)%tiles.length; clearTimeout(s.timer);
       s.el.style.left=(x+(Math.random()-.5)*30)+'px'; s.el.style.top=(y+(Math.random()-.5)*30)+'px';
       s.el.classList.remove('in'); void s.el.offsetWidth; s.el.classList.add('in');
       s.timer=setTimeout(()=>s.el.classList.remove('in'), 900); };
     const light=(x,w)=>{ const n=Math.round(Math.min(Math.max(x/w,0),1)*words.length); words.forEach((el,k)=>el.classList.toggle('lit', k<n)); };
     const handle=(cx,cy)=>{ if(busy.some(el=>{ const b=el.getBoundingClientRect(); return cx>=b.left-20&&cx<=b.right+20&&cy>=b.top-20&&cy<=b.bottom+20; })) return; const r=pin.getBoundingClientRect(); place(cx-r.left, cy-r.top); };
-    pin.addEventListener('mousemove', e=>handle(e.clientX,e.clientY));
+    let lastUser=0;
+    pin.addEventListener('mousemove', e=>{ lastUser=performance.now(); handle(e.clientX,e.clientY); });
+    // 아무도 안 움직일 때: 빈 공간을 따라 사진이 저절로 지나가며 '여기 커서 반응' 힌트
+    (() => { let on=false, raf=0, t0=0;
+      const step=now=>{ if(!on) return; raf=requestAnimationFrame(step);
+        if(now-lastUser<2500) return;
+        const r=pin.getBoundingClientRect(), t=(now-t0)/1000;
+        const x=r.width*(.12+.76*(.5+.5*Math.sin(t*.55))), y=r.height*(.86+.06*Math.sin(t*1.3));
+        const cx=r.left+x, cy=r.top+y; if(busy.some(el=>{ const b=el.getBoundingClientRect(); return cx>=b.left-20&&cx<=b.right+20&&cy>=b.top-20&&cy<=b.bottom+20; })) return;
+        if(now-last>230) { last=0; place(x,y); } };
+      new IntersectionObserver(es=>{ const v=es[0].isIntersecting; if(v&&!on){ on=true; t0=performance.now(); raf=requestAnimationFrame(step);} else if(!v&&on){ on=false; cancelAnimationFrame(raf);} },{threshold:.35}).observe(pin);
+    })();
     pin.addEventListener('touchmove', e=>{ const tt=e.touches[0]; if(tt) handle(tt.clientX,tt.clientY); }, {passive:true});
     pin.addEventListener('mouseleave', ()=>words.forEach(w=>w.classList.remove('lit')));
   })();
@@ -3136,17 +3179,31 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   document.querySelectorAll('.slider').forEach(sl => {
     const slides=[...sl.querySelectorAll('.slide')], dots=[...sl.querySelectorAll('.s-dots button')];
     let i=0;
-    const go=n=>{ i=(n+slides.length)%slides.length;
+    const slide2 = sl.classList.contains('first')||sl.classList.contains('second');
+    const dotWrap=sl.querySelector('.s-dots');
+    let peek=null;
+    if (slide2) { peek=document.createElement('div'); peek.className='s-next-peek'; peek.innerHTML='<span><em>Next</em><br><b></b></span><i></i>'; sl.appendChild(peek); }
+    const titleOf=s=>{ const t=document.createElement('div'); t.innerHTML=s.dataset.title||''; return t.textContent.replace(':',' : '); };
+    const updPeek=()=>{ if(!peek) return; const nx=slides[(i+1)%slides.length]; peek.querySelector('b').textContent=titleOf(nx); const im=nx.querySelector('img'); if(im) peek.querySelector('i').style.backgroundImage=`url("${im.src}")`; };
+    const go=(n,dir)=>{ const prev=i; i=(n+slides.length)%slides.length; if(i===prev) return;
+      if (slide2) { dir = dir || (n>prev?1:-1);
+        const ns=slides[i], ps=slides[prev];
+        ns.classList.add('no-tr'); ns.classList.toggle('from-left',dir<0); ns.classList.remove('past','to-right'); void ns.offsetWidth; ns.classList.remove('no-tr','from-left');
+        ps.classList.toggle('past',dir>0); ps.classList.toggle('to-right',dir<0);
+        slides.forEach((s,k)=>{ if(k!==i&&k!==prev){ s.classList.add('no-tr'); s.classList.remove('past','to-right','from-left'); void s.offsetWidth; s.classList.remove('no-tr'); } }); }
       slides.forEach((s,k)=>{s.classList.toggle('on',k===i); s.setAttribute('aria-hidden',k!==i);});
-      dots.forEach((d,k)=>d.classList.toggle('on',k===i)); };
-    sl.querySelector('.prev').addEventListener('click',()=>{ go(i-1); restart(); });
-    sl.querySelector('.next').addEventListener('click',()=>{ go(i+1); restart(); });
+      dots.forEach((d,k)=>{ d.classList.toggle('on',k===i); d.classList.toggle('done',k<i); d.style.animation='none'; void d.offsetWidth; d.style.animation=''; });
+      updPeek(); };
+    sl.querySelector('.prev').addEventListener('click',()=>{ go(i-1,-1); restart(); });
+    sl.querySelector('.next').addEventListener('click',()=>{ go(i+1,1); restart(); });
+    if (peek) sl.addEventListener('click',e=>{ const r=sl.getBoundingClientRect(); if(e.clientX>r.right-r.width*.18 && !e.target.closest('a,button')){ go(i+1,1); restart(); } });
     dots.forEach((d,k)=>d.addEventListener('click',()=>{ go(k); restart(); }));
+    updPeek();
     // 자동 롤링 (캠페인 슬라이더): 5초마다 다음 장, 마우스 올리면·화면 밖이면·탭 숨기면 멈춤
     let timer=null, inView=false, hover=false;
     const auto = (sl.classList.contains('first')||sl.classList.contains('second')) && !matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const stop=()=>{ clearInterval(timer); timer=null; };
-    const start=()=>{ stop(); if(auto && inView && !hover && !document.hidden) timer=setInterval(()=>go(i+1), 5000); };
+    const stop=()=>{ clearInterval(timer); timer=null; if(dotWrap) dotWrap.classList.add('paused'); };
+    const start=()=>{ stop(); if(auto && inView && !hover && !document.hidden){ timer=setInterval(()=>go(i+1,1), 5000); if(dotWrap){ dotWrap.classList.remove('paused'); dots.forEach(d=>{ if(d.classList.contains('on')){ d.style.animation='none'; void d.offsetWidth; d.style.animation=''; } }); } } };
     function restart(){ start(); }
     if (auto) {
       new IntersectionObserver(es=>{ inView=es[0].isIntersecting; start(); }, {threshold:.4}).observe(sl);
@@ -3494,7 +3551,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
       const a=Math.sin(x*.0042+t*.16)+Math.sin(y*.011-t*.12)+Math.sin((x*.6+y)*.0056+t*.09)+Math.sin(Math.hypot(x-W*.55,y-H*.7)*.009-t*.2);
       return a/4;
     };
-    const draw=(now)=>{
+    let draw=(now)=>{
       if(!ready) return;
       const t=reduce?0:now/1000;
       ctx.setTransform(dpr,0,0,dpr,0,0); ctx.clearRect(0,0,W,H);
@@ -3503,7 +3560,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
       for(let i=0;i<pts.length;i+=2){
         const x=pts[i], y=pts[i+1];
         let v=field(x,y,t);
-        const d=Math.hypot(x-mx,y-my); if(d<170) v+= (1-d/170)*1.25;
+        const d=Math.hypot(x-mx,y-my); if(d<260) v+= (1-d/260)*1.7;
         if(v>.62){ bright.moveTo(x+rb,y); bright.arc(x,y,rb,0,6.2832); }
         else if(v>.34){ ring.moveTo(x+rr,y); ring.arc(x,y,rr,0,6.2832); }
         else small.rect(x-rs,y-rs,rs*2,rs*2);
@@ -3520,8 +3577,11 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
       else if(active){ active=false; cancelAnimationFrame(raf); } }, {rootMargin:'200px 0px'});
     io.observe(foot);
     let rt; addEventListener('resize', ()=>{ clearTimeout(rt); rt=setTimeout(()=>{ if(ready){ foot.classList.remove('dotted'); ready=false; build(); } }, 200); });
-    foot.addEventListener('pointermove', e=>{ const b=cv.getBoundingClientRect(); mx=e.clientX-b.left; my=e.clientY-b.top; });
-    foot.addEventListener('pointerleave', ()=>{ mx=my=-9999; });
+    let lastMove=0;
+    addEventListener('pointermove', e=>{ const b=cv.getBoundingClientRect(); if(e.clientY<b.top-200||e.clientY>b.bottom+80) return; lastMove=performance.now(); mx=e.clientX-b.left; my=e.clientY-b.top; }, {passive:true});
+    // 커서가 없을 때: 보이지 않는 커서가 로고 위를 천천히 훑고 지나감
+    const ghost=now=>{ if(now-lastMove<2000||!ready) return; const t=now/1000; mx=W*(.5+.44*Math.sin(t*.45)); my=H*(.62+.22*Math.sin(t*.9)); };
+    const _draw=draw; draw=(now)=>{ ghost(now); _draw(now); };
   })();
 </script>
 
