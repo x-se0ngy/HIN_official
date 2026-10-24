@@ -3358,10 +3358,10 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     // 각 포메이션: i번째 카드의 위치·회전 (t는 아주 느리게 흐르는 시간)
     const forms=[
       // 01 모래시계 터널 — 가운데로 모이는 고요한 흐름
-      (i,t)=>{ const u=wrap(i/n+t*.012)*2-1, a=Math.abs(u), sg=u<0?-1:1;
+      (i,t)=>{ const u=((i+.5)/n)*2-1 + Math.sin(t*.25+i)*.015, a=Math.abs(u), sg=u<0?-1:1;   /* 순간이동 없이 제자리에서 살짝 숨쉬기 */
         return {x:0, y:sg*Math.pow(a,1.2)*H*.62, z:-(1-a)*80, rx:-sg*(80-a*30), ry:0, rz:0, s:.55+a*.95}; },
       // 02 대각선 행렬 — 한 줄로 천천히 다가옴
-      (i,t)=>{ const k=wrap(i/n+t*.01);
+      (i,t)=>{ const k=.03+(i/(n-1))*.94 + Math.sin(t*.2+i*.7)*.008;
         return {x:lerp(W*.58,-W*.58,k), y:lerp(-H*.48,H*.55,k), z:lerp(-1100,300,k), rx:6, ry:-30, rz:-4, s:.95}; },
       // 03 펼침면 — 짝은 책처럼 살짝 열려 있고, 단독 페이지는 평평하게
       (i,t)=>{ const g=gOf[i], side=sideOf[i], mob=W<680, cols=mob?2:4, rows=Math.ceil(G/cols);
@@ -3381,19 +3381,19 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     const frame=now=>{
       const r=sec.getBoundingClientRect(), total=sec.offsetHeight-H;
       const target=total>0?clamp(-r.top/total,0,1):0;
-      sp = sp===null ? target : sp+(target-sp)*(reduce?1:.06);   // 스크롤을 부드럽게 따라감
+      sp = sp===null ? target : sp+(target-sp)*(reduce?1:.045);   // 스크롤을 부드럽게 따라감
       const pos=sp*(F-1), a=Math.min(Math.floor(pos),F-2), f=pos-a;
-      const m=soft(clamp((f-.2)/.6,0,1));
+      const m0=clamp((f-.12)/.76,0,1);
       const t=(reduce?0:now/1000*.6)+sp*1.5;
       for(let i=0;i<n;i++){
-        const A=forms[a](i,t), B=forms[a+1](i,t), o={};
+        const A=forms[a](i,t), B=forms[a+1](i,t), o={}, d=i/(n-1)*.22, m=soft(clamp((m0-d)/(1-.22),0,1));   /* 카드마다 살짝 시간차 */
         // 회전은 가장 짧은 방향으로만 (3→4 링 전환 때 한 바퀴씩 도는 문제 방지)
         KEYS.forEach(k=>{ if(k==='rx'||k==='ry'||k==='rz'){ const d=((B[k]-A[k])%360+540)%360-180; o[k]=A[k]+d*m; } else o[k]=lerp(A[k],B[k],m); });
         cards[i].style.transform=`translate3d(${o.x}px,${o.y}px,${o.z}px) rotateX(${o.rx}deg) rotateY(${o.ry}deg) rotateZ(${o.rz}deg) scale(${o.s})`;
         cards[i].style.zIndex=Math.round(o.z+2000);
       }
       const cur=Math.round(pos);
-      groups.forEach((g,k)=>g.style.opacity = k===a ? 1-m : k===a+1 ? m : 0);
+      groups.forEach((g,k)=>g.style.opacity = k===a ? 1-soft(m0) : k===a+1 ? soft(m0) : 0);
       if(cur!==lastF){ lastF=cur;
         titles.forEach((s,k)=>s.classList.toggle('on',k===cur));
         tags.forEach((s,k)=>{ s.style.opacity = k===cur?1:0; s.classList.toggle('on',k===cur); });
