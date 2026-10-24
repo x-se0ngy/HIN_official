@@ -2911,9 +2911,21 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
     const go=n=>{ i=(n+slides.length)%slides.length;
       slides.forEach((s,k)=>{s.classList.toggle('on',k===i); s.setAttribute('aria-hidden',k!==i);});
       dots.forEach((d,k)=>d.classList.toggle('on',k===i)); };
-    sl.querySelector('.prev').addEventListener('click',()=>go(i-1));
-    sl.querySelector('.next').addEventListener('click',()=>go(i+1));
-    dots.forEach((d,k)=>d.addEventListener('click',()=>go(k)));
+    sl.querySelector('.prev').addEventListener('click',()=>{ go(i-1); restart(); });
+    sl.querySelector('.next').addEventListener('click',()=>{ go(i+1); restart(); });
+    dots.forEach((d,k)=>d.addEventListener('click',()=>{ go(k); restart(); }));
+    // 자동 롤링 (캠페인 슬라이더): 5초마다 다음 장, 마우스 올리면·화면 밖이면·탭 숨기면 멈춤
+    let timer=null, inView=false, hover=false;
+    const auto = sl.classList.contains('first') && !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const stop=()=>{ clearInterval(timer); timer=null; };
+    const start=()=>{ stop(); if(auto && inView && !hover && !document.hidden) timer=setInterval(()=>go(i+1), 5000); };
+    function restart(){ start(); }
+    if (auto) {
+      new IntersectionObserver(es=>{ inView=es[0].isIntersecting; start(); }, {threshold:.4}).observe(sl);
+      sl.addEventListener('mouseenter',()=>{ hover=true; stop(); });
+      sl.addEventListener('mouseleave',()=>{ hover=false; start(); });
+      document.addEventListener('visibilitychange', start);
+    }
   });
   // 카드 드래그 스크롤
   const cards=document.getElementById('cards');
