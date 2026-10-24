@@ -2051,7 +2051,9 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 <style id="prise-lines-1024">
 /* 양쪽을 줄 단위로 같은 박자에 등장 + 줄 높이 통일해 1줄·2줄이 서로 맞게 */
 @media (min-width:681px){
-  .pr-line .half.l,.pr-line .half.r{line-height:calc(22*var(--u));}
+  /* 폰트가 달라서 따로: 왼쪽 픽셀 폰트는 넓게, 오른쪽 본문 폰트는 26 */
+  .pr-line .half.l{line-height:calc(32*var(--u)); letter-spacing:calc(3*var(--u));}
+  .pr-line .half.r{line-height:calc(26*var(--u)); letter-spacing:0;}
 }
 .pr-line .ln{display:block; opacity:0; transform:translateY(.6em); filter:blur(8px);
   transition:opacity .55s ease, transform .8s cubic-bezier(.22,1,.36,1), filter .6s ease; transition-delay:calc(var(--i)*120ms);}
