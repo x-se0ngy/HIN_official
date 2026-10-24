@@ -1976,16 +1976,8 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   .slider.first .s-btn svg{width:calc(36.8*var(--u)); height:calc(36.8*var(--u));}
 }
 
-/* 버튼: 두꺼운 흰 광택 테두리 제거 → 얇은 선, 내용 크기만큼만 (왼쪽 정렬), 화살표 축소 */
-@media (min-width:681px){
-  .slider.first .s-btn{align-self:flex-start; padding:calc(10*var(--u)) calc(26*var(--u)); gap:calc(20*var(--u));
-    border:1px solid rgba(255,255,255,.55); background:rgba(0,0,0,.35); box-shadow:none; transition:border-color .25s ease, background .25s ease;}
-  .slider.first .s-btn::after{display:none;}
-  .slider.first .s-btn span{font-size:calc(14.5*var(--u)); line-height:calc(32*var(--u)); letter-spacing:calc(3.4*var(--u));}
-  .slider.first .s-btn svg{width:calc(20*var(--u)); height:calc(20*var(--u));}
-  .slider.first .s-btn:hover{border-color:#fff; background:rgba(0,0,0,.55);}
-  .slider.first .s-btn:hover svg{transform:translateX(calc(4*var(--u)));}
-}
+/* 카드 안 제목·글은 버튼보다 안쪽으로 한 단 들여서 시작 */
+@media (min-width:681px){ .slider.first .s-card-inner > div:first-child{padding-left:calc(30*var(--u)); box-sizing:border-box; width:100%;} }
 /* 슬라이드 점: 작은 네모로 */
 @media (min-width:681px){
   .s-dots{gap:calc(22*var(--u));}
