@@ -1935,17 +1935,16 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
      단 사이 빈 간격은 1→2, 2→3 모두 약 109u로 같게 */
   .about-grid{grid-template-columns:calc(706.5*var(--u)) calc(347*var(--u)) calc(323*var(--u)) 1fr; gap:0;}
   /* 오른쪽 사진: 안쪽 네모 한 칸 안에서 끝나게 */
-  .about-section{padding-right:calc(174*var(--u)) !important;}
+  .about-section{padding-right:calc(142.8*var(--u)) !important;}  /* 사진 오른쪽 끝 = 안쪽 네모 오른쪽 끝 */
   /* 사진은 자르지 않고 원본 비율 그대로 */
-  .about-photo{--ph:min(70vh, calc(756*var(--u))); height:var(--ph) !important; width:calc(var(--ph) * 679 / 1018) !important; background-size:100% 100% !important;}
-  /* 원래 크기 사진이 들어가도록 단 간격을 같게 줄임 (1→2, 2→3, 3→사진 모두 78u) */
-  .about-grid{grid-template-columns:calc(658.5*var(--u)) calc(268*var(--u)) calc(248*var(--u)) 1fr !important;}
-  .about-grid > div:last-child{justify-self:end;}
+  .about-photo{--ph:min(66.6vh, calc(720*var(--u))); height:var(--ph) !important; width:calc(var(--ph) * 679 / 1018) !important; background-size:100% 100% !important;}
+  .about-grid > div:last-child{display:flex; justify-content:flex-end; min-width:0;}  /* 사진은 오른쪽 끝 고정, 넘치면 왼쪽으로 */
+  .about-photo{flex:none;}
   .about-body{padding-left:calc(130.5*var(--u));}
   .about-body p{max-width:calc(467*var(--u)) !important;}
   /* 1단도 2·3단과 같은 형식: 노랑 네모 + 제목, 흰 본문, 들여쓰기 없이 3문단 */
   /* 1단 오른쪽 여백: 1→2단 사이 간격을 2→3단 사이 간격과 맞춤 */
-  .about-body{padding-right:calc(78*var(--u));}
+  .about-body{padding-right:calc(109*var(--u));}
   .about-body .about-label{font-family:var(--grotesk); font-weight:500; font-size:calc(16*var(--u)); line-height:calc(32*var(--u)); letter-spacing:calc(1*var(--u)); color:#fff;}
   .about-body p{margin:0 0 calc(16*var(--u)); color:#fff; font-size:calc(16*var(--u)); line-height:calc(26*var(--u)); text-indent:0 !important;}
 }
