@@ -2333,6 +2333,20 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
 .about-tiles .hero-tile.out{opacity:0; filter:blur(6px); transform:translate(-50%,-58%) scale(1.02) !important;
   transition:opacity 1.1s ease, filter 1.1s ease, transform 1.4s cubic-bezier(.22,1,.36,1) !important;}
 </style>
+<style id="nav-1025">
+/* 목차: 상단 오른쪽, 왼쪽 문구 두 줄과 같은 줄에 MAIN / SHOP 세로로 (오른쪽 바깥 네모 끝선 정렬) */
+@media (min-width:681px){
+  .nav{position:absolute; top:calc(48.5*var(--u)); right:calc(58.7*var(--u)); transform:none !important;
+    flex-direction:column; align-items:flex-start; gap:0 !important; width:auto !important;}
+  .nav a{padding:0 !important; line-height:calc(16*var(--u)) !important; height:calc(16*var(--u));}
+  /* 흐르는 문구는 목차 앞에서 흐려지며 끝나도록 (비율 유지, 길이만 짧게) */
+  .tagline{width:calc(1435*var(--u)) !important;}
+  .tag-layer.sharp{-webkit-mask-image:linear-gradient(to right,#000 0,#000 calc(1086*var(--u)),transparent calc(1276*var(--u)));
+          mask-image:linear-gradient(to right,#000 0,#000 calc(1086*var(--u)),transparent calc(1276*var(--u)));}
+  .tag-layer.soft{-webkit-mask-image:linear-gradient(to right,transparent 0,transparent calc(1086*var(--u)),#000 calc(1276*var(--u)),#000 calc(1382*var(--u)),transparent 100%);
+          mask-image:linear-gradient(to right,transparent 0,transparent calc(1086*var(--u)),#000 calc(1276*var(--u)),#000 calc(1382*var(--u)),transparent 100%);}
+}
+</style>
 </head>
 <body>
 
@@ -2403,7 +2417,7 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
         <div class="hv-swatches" id="colorSwatches">
           <button class="hv-swatch active" data-color="" data-label="GRAY" style="background:#8B8B87;" title="Gray" aria-label="그레이" type="button"></button>
           <button class="hv-swatch" data-color="#1E1D1B" data-label="BLACK" style="background:#1E1D1B;" title="Black" aria-label="블랙" type="button"></button>
-          <button class="hv-swatch" data-color="#FFFBBA" data-label="YELLOW" style="background:#FFFBBA;" title="Yellow" aria-label="옐로우" type="button"></button>
+          <button class="hv-swatch" data-color="#FFFEE4" data-label="YELLOW" style="background:#FFFBBA;" title="Yellow" aria-label="옐로우" type="button"></button>
         </div>
         <span class="hv-index" id="colorIndex">GRAY : A balanced palette for focused work.</span>
       </div>
@@ -2564,7 +2578,7 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
     <div class="ps-pills" id="psColorPills">
       <button class="hv-btn ps-mood active" data-color="" type="button" aria-pressed="true"><i style="background:#8B8B87"></i><span>Gray<em>Focus</em></span></button>
       <button class="hv-btn ps-mood" data-color="#1E1D1B" type="button" aria-pressed="false"><i style="background:#1E1D1B"></i><span>Black<em>Night</em></span></button>
-      <button class="hv-btn ps-mood" data-color="#FFFBBA" type="button" aria-pressed="false"><i style="background:#FFFBBA"></i><span>Yellow<em>Signal</em></span></button>
+      <button class="hv-btn ps-mood" data-color="#FFFEE4" type="button" aria-pressed="false"><i style="background:#FFFBBA"></i><span>Yellow<em>Signal</em></span></button>
     </div>
   </div>
 </section>
@@ -3293,7 +3307,7 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
   const COLORS=[
     {label:'Gray',   hex:''},
     {label:'Black',  hex:'#1E1D1B'},
-    {label:'Yellow', hex:'#FFFBBA'}
+    {label:'Yellow', hex:'#FFFEE4'}
   ];
   const BODY=/gray_top|gray_bottom|Space_Gray/i;
   const hexToRgba=hex=>{ const h=hex.replace('#',''); return [0,2,4].map(i=>parseInt(h.substr(i,2),16)/255).concat(1); };
@@ -3695,7 +3709,7 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
     const COLORS = [
       {name:'Gray',   hex:'',        sw:'#8B8B87', ink:'#fff'},
       {name:'Black',  hex:'#1E1D1B', sw:'#1E1D1B', ink:'#fff'},
-      {name:'Yellow', hex:'#FFFBBA', sw:'#FFFBBA', ink:'#1E1D1B'}
+      {name:'Yellow', hex:'#FFFEE4', sw:'#FFFBBA', ink:'#1E1D1B'}
     ];
     const won = n => '₩' + n.toLocaleString('ko-KR');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
