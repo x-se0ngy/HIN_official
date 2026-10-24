@@ -2233,6 +2233,13 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 .ps-pills .ps-mood.active i{outline-color:#fff;}
 @media (max-width:680px){ .ps-title{font-size:20px !important; line-height:28px !important;} .ps-desc br{display:none;} .ps-pills .ps-mood span{font-size:12px !important;} }
 </style>
+<style id="info-color-1024">
+/* 컬러 선택을 홈 정보 CONCEPT 칸 아래로 */
+#infoPanel .info-color{margin-top:calc(18*var(--u)); pointer-events:auto;}
+#infoPanel .info-color .hv-index{color:#9C9C9C; font-size:calc(13.5*var(--u)); line-height:calc(22*var(--u));}
+#infoPanel .info-color .hv-swatch{width:calc(20*var(--u)); height:calc(20*var(--u));}
+@media (max-width:680px){ #infoPanel .info-color{margin-top:10px;} #infoPanel .info-color .hv-swatch{width:14px; height:14px;} #infoPanel .info-color .hv-index{font-size:10px;} }
+</style>
 </head>
 <body>
 
@@ -2282,16 +2289,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 
 
   <div class="hv-bar">
-    <div class="hv-color">
-      <div class="hv-row">
-        <div class="hv-swatches" id="colorSwatches">
-          <button class="hv-swatch active" data-color="" data-label="GRAY" style="background:#8B8B87;" title="Gray" aria-label="그레이" type="button"></button>
-          <button class="hv-swatch" data-color="#1E1D1B" data-label="BLACK" style="background:#1E1D1B;" title="Black" aria-label="블랙" type="button"></button>
-          <button class="hv-swatch" data-color="#FFFBA6" data-label="YELLOW" style="background:#FFFBA6;" title="Yellow" aria-label="옐로우" type="button"></button>
-        </div>
-        <span class="hv-index" id="colorIndex">01 / GRAY</span>
-      </div>
-    </div>
+    
     <div class="hv-controls">
       <button class="hv-btn" id="navImageInfo" type="button" aria-pressed="false"><span><span class="box">[<i class="dot">&nbsp;</i>]</span> Info</span></button>
       <button class="hv-btn" id="resetBtn" type="button" aria-label="시점 초기화"><span>Reset</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="4" width="16" height="16"/></svg></button>
@@ -2307,7 +2305,16 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 <div class="info-panel" id="infoPanel">
   <div class="col"><div class="col-label">BRAND</div><div>HIN : Here I Am Now</div><div class="info-desc">Designed for the way we work today.</div></div>
   <div class="col"><div class="col-label">PROJECT INFO</div><div>Portable Workspace System, 2026</div><div class="info-desc">One seamless setup, wherever you go.</div></div>
-  <div class="col"><div class="col-label">CONCEPT</div><div>Different Places. Same Flow.</div><div class="info-desc">Stay connected to your work, anywhere.</div></div>
+  <div class="col"><div class="col-label">CONCEPT</div><div>Different Places. Same Flow.</div><div class="info-desc">Stay connected to your work, anywhere.</div><div class="hv-color info-color">
+      <div class="hv-row">
+        <div class="hv-swatches" id="colorSwatches">
+          <button class="hv-swatch active" data-color="" data-label="GRAY" style="background:#8B8B87;" title="Gray" aria-label="그레이" type="button"></button>
+          <button class="hv-swatch" data-color="#1E1D1B" data-label="BLACK" style="background:#1E1D1B;" title="Black" aria-label="블랙" type="button"></button>
+          <button class="hv-swatch" data-color="#FFFBA6" data-label="YELLOW" style="background:#FFFBA6;" title="Yellow" aria-label="옐로우" type="button"></button>
+        </div>
+        <span class="hv-index" id="colorIndex">01 / GRAY</span>
+      </div>
+    </div></div>
 </div>
 
 <div class="bg-toggle-row" id="bgToggleRow">
