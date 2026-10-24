@@ -2201,6 +2201,17 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 
 @media (max-width:680px){ .about-film video{display:block; width:100%; height:100%; object-fit:cover;} .about-film{aspect-ratio:9/16; height:auto !important;} }
 </style>
+<style id="now-1024">
+/* Now: 화면 고정 대신 내용 높이만 → 위아래 빈 공간 축소. 스크롤하면 단어가 차례로 켜짐(마우스 사진 트레일은 그대로) */
+@media (min-width:681px){
+  .about-section{padding-bottom:calc(60*var(--u)) !important;}
+  #viewHome .hero-roll{height:auto !important;}
+  #viewHome .hero-roll .hero-pin{position:relative !important; height:auto !important; padding:calc(170*var(--u)) 0 calc(150*var(--u));}
+  .site-footer{margin-top:calc(-60*var(--u));}
+}
+#viewHome .hero-roll .hero-text span.on{color:#fff;}
+#viewHome .hero-roll .hero-text span{transition:color .45s ease;}
+</style>
 </head>
 <body>
 
@@ -3719,6 +3730,16 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     const loop=()=>{ const t=target(); cur = cur===null ? t : cur+(t-cur)*.12; draw(cur); if(on) raf=requestAnimationFrame(loop); };
     new IntersectionObserver(es=>{ const v=es[0].isIntersecting; if(v&&!on){ on=true; raf=requestAnimationFrame(loop);} else if(!v&&on){ on=false; cancelAnimationFrame(raf);} }).observe(sec);
     draw(target());
+  })();
+</script>
+<script>
+  // Now: 스크롤 진행에 따라 단어가 하나씩 켜짐
+  (() => { const t=document.getElementById('heroText'); if(!t) return;
+    const ws=[...t.querySelectorAll('[data-w]')], clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
+    const up=()=>{ const r=t.getBoundingClientRect(), H=innerHeight;
+      const p=clamp((H*.9 - r.top)/(H*.55),0,1), n=Math.round(p*ws.length);
+      ws.forEach((w,i)=>w.classList.toggle('on', i<n)); };
+    let tk=false; addEventListener('scroll',()=>{ if(!tk){ tk=true; requestAnimationFrame(()=>{ tk=false; up(); }); } },{passive:true}); up();
   })();
 </script>
 </body>
