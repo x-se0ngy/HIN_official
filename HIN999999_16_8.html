@@ -2084,6 +2084,29 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   .mag-ui.br{font-size:calc(14*var(--u));}
 }
 </style>
+<style id="en-type-1024">
+/* 영문(Aeonik) 공통 타이포: 촘촘한 행간(약 1.25) + 살짝 좁힌 자간, 제목은 진하게·설명은 회색 */
+@media (min-width:681px){
+  /* 홈 정보 */
+  #infoPanel .col{line-height:1.25 !important; letter-spacing:-0.01em;}
+  #infoPanel .col .info-desc{margin-top:calc(2*var(--u));}
+  /* 매니페스토 오른쪽 설명 */
+  .pr-line .half.r{line-height:1.25 !important; letter-spacing:-0.01em !important;}
+  /* 캠페인 카드 */
+  .slider.first .s-addr{line-height:1.25 !important; letter-spacing:-0.01em;}
+  .slider.first .s-desc{line-height:1.25 !important; letter-spacing:-0.01em; margin-top:calc(6*var(--u));}
+  /* 매거진 */
+  .mag-ch .sub{line-height:1.25 !important; letter-spacing:-0.01em;}
+  .mag-ui{line-height:1.25 !important; letter-spacing:-0.005em !important;}
+  .mag-tag{letter-spacing:-0.005em;}
+  /* About */
+  .about-body p{line-height:1.25 !important; letter-spacing:-0.01em !important; margin-bottom:calc(14*var(--u)) !important;}
+  .about-body p{max-width:calc(432*var(--u)) !important;}  /* 좁아진 자간만큼 폭도 줄여 기존 줄바꿈 유지 */
+  .about-address div,.about-focus div{line-height:1.25 !important; letter-spacing:-0.005em !important;}
+  .about-address > div:last-child,.about-focus > div:last-child{line-height:1.25 !important;}
+  .about-label{letter-spacing:-0.005em !important;}
+}
+</style>
 </head>
 <body>
 
