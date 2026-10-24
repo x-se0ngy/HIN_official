@@ -1987,6 +1987,10 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
 
 /* People 슬라이더: 모델을 가리지 않게 카드를 왼쪽 아래(안쪽 네모 줄)로 */
 @media (min-width:681px){ .slider.second .s-card-wrap{left:calc(164*var(--u)); right:auto; transform:none; top:auto; bottom:calc(150*var(--u)); align-items:flex-start;} }
+
+/* People 슬라이더 카드: 안쪽 네모 세로줄에 맞춰 왼쪽 가운데, 왼쪽 화살표 없음 */
+@media (min-width:681px){ .slider.second .s-card-wrap{left:calc(135.8*var(--u)) !important; top:50% !important; bottom:auto !important; transform:translateY(-50%) !important;} }
+.slider.second .s-arrow.prev{display:none !important;}
 </style>
 <style id="dots-color-1023">
 /* 화면 양옆 작은 네모: 정보 텍스트와 같은 그레이 */
@@ -2243,6 +2247,15 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 #infoPanel .info-color .hv-swatch{width:calc(20*var(--u)); height:calc(20*var(--u));}
 @media (max-width:680px){ #infoPanel .info-color{margin-top:10px;} #infoPanel .info-color .hv-swatch{width:14px; height:14px;} #infoPanel .info-color .hv-index{font-size:10px;} }
 </style>
+<style id="info-color2-1024">
+/* 홈 COLOR: 견본 크게 한 줄 + 아래 설명 */
+#infoPanel .col-color .hv-row{height:auto !important; flex-direction:column; align-items:flex-start; gap:calc(12*var(--u)) !important;}
+#infoPanel .col-color .hv-swatches{gap:calc(10*var(--u)) !important;}
+#infoPanel .col-color .hv-swatch{width:calc(30*var(--u)) !important; height:calc(30*var(--u)) !important; box-shadow:inset 0 0 0 calc(4*var(--u)) #0a0a0a, 0 0 0 1px rgba(255,255,255,.35) !important;}
+#infoPanel .col-color .hv-swatch.active{box-shadow:inset 0 0 0 calc(4*var(--u)) #0a0a0a, 0 0 0 calc(2*var(--u)) var(--dot) !important;}
+#infoPanel .col-color .hv-index{font-family:var(--grotesk) !important; font-weight:500; text-transform:none !important; letter-spacing:-0.01em !important; font-size:calc(15.5*var(--u)) !important; line-height:1.25 !important; color:#9C9C9C !important; white-space:nowrap;}
+@media (max-width:680px){ #infoPanel .col-color .hv-swatch{width:20px !important; height:20px !important;} #infoPanel .col-color .hv-index{font-size:12px !important;} }
+</style>
 </head>
 <body>
 
@@ -2315,7 +2328,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
           <button class="hv-swatch" data-color="#1E1D1B" data-label="BLACK" style="background:#1E1D1B;" title="Black" aria-label="블랙" type="button"></button>
           <button class="hv-swatch" data-color="#FFFBA6" data-label="YELLOW" style="background:#FFFBA6;" title="Yellow" aria-label="옐로우" type="button"></button>
         </div>
-        <span class="hv-index" id="colorIndex">01 / GRAY</span>
+        <span class="hv-index" id="colorIndex">GRAY : A balanced palette for focused work.</span>
       </div>
     </div></div>
 </div>
@@ -2990,7 +3003,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
   const idx = { GRAY:'01', BLACK:'02', YELLOW:'03' };
   swatches.forEach(btn => btn.addEventListener('click', () => {
     swatches.forEach(b=>b.classList.remove('active')); btn.classList.add('active');
-    $('colorIndex').textContent = `${idx[btn.dataset.label]} / ${btn.dataset.label}`;
+    $('colorIndex').textContent = `${({GRAY:'GRAY : A balanced palette for focused work.',BLACK:'CHARCOAL : A refined tone for a modern workspace.',YELLOW:'LEMON CHIFFON : A subtle accent that brings fresh energy.'})[btn.dataset.label]}`;
     paint(viewer, btn.dataset.color);
   }));
 
