@@ -2074,8 +2074,11 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 .mag-ch .eyebrow{font-family:var(--grotesk); font-weight:500; letter-spacing:calc(2*var(--u));}
 /* 매거진 뒤 선: 더 얇고 연하게 + 사진 위를 지나면 색이 반전 (네모와 같은 효과) */
 .mag-lines{mix-blend-mode:difference;}
-.mag-lines line,.mag-lines ellipse,.mag-lines path,.mag-lines rect{stroke:#4A4A4A !important; stroke-width:.6 !important;}
-.mag-lines .node{fill:none !important; stroke:#6A6A6A !important;}
+.mag-lines line,.mag-lines ellipse,.mag-lines path,.mag-lines rect{stroke:#8A8A8A !important; stroke-width:.6 !important;}
+/* 선 위 작은 네모·눈금 표시는 빼고 선만 남김 */
+.mag-lines .node, .mag-lines path{display:none !important;}
+/* 선을 페이지보다 위에 두고 글씨와 같은 반전 효과로 */
+.mag-stage{z-index:1;} .mag-lines{z-index:4 !important;} .mag-chapters{z-index:5 !important;}
 /* 네 모서리 UI도 Aeonik */
 .mag-ui{font-family:var(--grotesk) !important; font-weight:500; letter-spacing:calc(1.5*var(--u)) !important;}
 @media (min-width:681px){
