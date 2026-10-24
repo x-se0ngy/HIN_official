@@ -2061,6 +2061,17 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
 .pr-line:not(.active) .ln{transform:translateY(-.5em); transition-delay:0s; transition-duration:.35s,.45s,.35s;}
 @media (prefers-reduced-motion:reduce){ .pr-line .ln{transition:none; filter:none;} }
 </style>
+<style id="mag-size-1024">
+/* 매거진: 글씨·페이지 전체적으로 축소 */
+@media (min-width:681px){
+  .mag-ch .eyebrow{font-size:calc(14*var(--u)); line-height:calc(24*var(--u)); letter-spacing:calc(3*var(--u)); margin-bottom:calc(12*var(--u));}
+  .mag-ch .eyebrow i{width:calc(10*var(--u)); height:calc(10*var(--u));}
+  .mag-ch .title{font-size:calc(46*var(--u));}
+  .mag-ch .sub{margin-top:calc(12*var(--u)); font-size:calc(17*var(--u));}
+  .mag-ui.tl,.mag-ui.tr,.mag-ui.bl{font-size:calc(14*var(--u)); line-height:calc(26*var(--u));}
+  .mag-ui.br{font-size:calc(14*var(--u));}
+}
+</style>
 </head>
 <body>
 
@@ -3195,7 +3206,7 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
     const F=4, lerp=(a,b,t)=>a+(b-a)*t, clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
     const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
     let W=innerWidth, H=innerHeight, cw, ch;
-    const size=()=>{ W=innerWidth; H=innerHeight; cw=Math.min(W*(W<680?.34:.15), H*.3); ch=cw*1.292;
+    const size=()=>{ W=innerWidth; H=innerHeight; cw=Math.min(W*(W<680?.28:.115), H*.23); ch=cw*1.292;
       cards.forEach(c=>{ c.style.width=cw+'px'; c.style.height=ch+'px'; c.style.marginLeft=(-cw/2)+'px'; c.style.marginTop=(-ch/2)+'px'; }); };
     size(); addEventListener('resize', size);
     const wrap=v=>((v%1)+1)%1;
