@@ -1934,6 +1934,8 @@ var Wy=Uint8Array,qy=Uint16Array,Xy=Int32Array,jy=new Wy([0,0,0,0,0,0,0,0,1,1,1,
   /* About 1단: 그레이 네모 옆으로 손가락 하나 정도(약 48u) 띄워서 시작, 문장 폭은 467u 고정(줄바꿈 유지)
      단 사이 빈 간격은 1→2, 2→3 모두 약 109u로 같게 */
   .about-grid{grid-template-columns:calc(706.5*var(--u)) calc(347*var(--u)) calc(323*var(--u)) 1fr; gap:0;}
+  /* 오른쪽 사진: 안쪽 네모 한 칸 안에서 끝나게 */
+  .about-section{padding-right:calc(174*var(--u)) !important;}
   .about-body{padding-left:calc(130.5*var(--u));}
   .about-body p{max-width:calc(467*var(--u)) !important;}
   /* 1단도 2·3단과 같은 형식: 노랑 네모 + 제목, 흰 본문, 들여쓰기 없이 3문단 */
