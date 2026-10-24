@@ -3326,7 +3326,8 @@ section.slogan:not(.mid){display:none !important;}   /* 같은 문장이라 단�
       const t=(reduce?0:now/1000*.6)+sp*1.5;
       for(let i=0;i<n;i++){
         const A=forms[a](i,t), B=forms[a+1](i,t), o={};
-        KEYS.forEach(k=>o[k]=lerp(A[k],B[k],m));
+        // 회전은 가장 짧은 방향으로만 (3→4 링 전환 때 한 바퀴씩 도는 문제 방지)
+        KEYS.forEach(k=>{ if(k==='rx'||k==='ry'||k==='rz'){ const d=((B[k]-A[k])%360+540)%360-180; o[k]=A[k]+d*m; } else o[k]=lerp(A[k],B[k],m); });
         cards[i].style.transform=`translate3d(${o.x}px,${o.y}px,${o.z}px) rotateX(${o.rx}deg) rotateY(${o.ry}deg) rotateZ(${o.rz}deg) scale(${o.s})`;
         cards[i].style.zIndex=Math.round(o.z+2000);
       }
