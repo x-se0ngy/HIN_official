@@ -2487,6 +2487,9 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
 .s-pin{--sh:calc(1080*var(--u)); --sx:55vh; position:relative; height:calc(var(--sh) + var(--sx)); margin-top:calc(80*var(--u));}
 .s-pin > .slider{position:sticky !important; top:calc((100vh - var(--sh)) / 2); margin-top:0 !important;}
 @media (max-width:680px){ .s-pin{--sh:560px; --sx:45vh; margin-top:40px;} }
+/* 3번 → 4번: 붙지 않게 2→3 사이처럼 섹션 간격 */
+.s-pin.s-pin-people{margin-top:calc(240*var(--u));}
+@media (max-width:680px){ .s-pin.s-pin-people{margin-top:140px;} }
 </style>
 </head>
 <body>
@@ -3422,7 +3425,7 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
     function restart(){ start(); }
     // 스크롤로 한 장 넘김: 슬라이더를 잠깐 화면에 고정하고, 고정 구간 절반을 지나면 다음 장 (위로 올리면 이전 장)
     if (slide2) {
-      const pin=document.createElement('div'); pin.className='s-pin';
+      const pin=document.createElement('div'); pin.className='s-pin '+(sl.classList.contains('second')?'s-pin-people':'s-pin-camp');
       sl.parentNode.insertBefore(pin, sl); pin.appendChild(sl);
       const prog=()=>{ const r=pin.getBoundingClientRect(), st=parseFloat(getComputedStyle(sl).top)||0, E=pin.offsetHeight-sl.offsetHeight; return E>0 ? (st - r.top)/E : 0; };
       let last=prog()>=.5, tk=false;
