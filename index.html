@@ -2467,6 +2467,9 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
 .hg-cap i{opacity:var(--k);}
 .hg-cap b{transform:scaleX(var(--kl)); transform-origin:left center;}
 .hg-cap.bot b{transform-origin:right center;}
+/* 선 그라데이션 (Figma 6058:17237 / 6058:17238): 네모 쪽이 밝고 멀어질수록 회색 */
+.hg-cap.top b{background:linear-gradient(90deg,#FEFEFE 0%,#868686 100%) !important;}
+.hg-cap.bot b{background:linear-gradient(90deg,#868686 0%,#FEFEFE 100%) !important;}
 /* About 아래 저작권 */
 .about-copy.m{display:none;}
 .about-copy{margin-top:calc(110*var(--u)); font-family:var(--grotesk); font-weight:400; font-size:calc(14*var(--u)); line-height:1.25; letter-spacing:.01em; color:#7A7A7A;}
