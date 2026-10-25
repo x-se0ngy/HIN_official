@@ -2421,8 +2421,8 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
   #productRise .pr-line .half.r{top:calc(71vh + 18px) !important;}
 
   /* 3번(병풍) 섹션: 앞뒤 검은 여백 줄이기 — 고정 영역을 화면 가운데 60%로 */
-  .hinge-gallery{height:130vh !important;}
-  .hg-pin{top:20vh !important; height:60vh !important;}
+  .hinge-gallery{height:calc(33vw + 76px + 40vh) !important;}
+  .hg-pin{top:calc(50vh - (33vw + 76px)/2) !important; height:calc(33vw + 76px) !important;}
 
   /* About · Studio · What we make: 같은 형식으로 통일 (노랑 네모 + 흰 제목, 회색 본문) */
   .about-label{font-family:var(--grotesk) !important; font-weight:500 !important; font-size:12px !important; line-height:16px !important; letter-spacing:.02em !important; text-transform:uppercase !important; color:#fff !important; gap:8px !important; margin-bottom:10px !important;}
@@ -4031,7 +4031,7 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
     const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches, clamp=(v,a,b)=>Math.min(Math.max(v,a),b);
     const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2, MAX=24;
     let cur=null, raf=0, on=false;
-    const target=()=>{ if(reduce) return 1; const r=sec.getBoundingClientRect(); const H=innerHeight; if(innerWidth<=680){ return Math.min(clamp((H - r.top)/(H*.8),0,1), clamp(r.bottom/(H*.8),0,1)); } const open=clamp((H*.1 - r.top)/(H*1.1),0,1), close=clamp((r.bottom - H*.4)/(H*1.2),0,1); return Math.min(open,close); /* 들어올 때 펴지고, 올라가며 나갈 때 다시 접힘 */ };
+    const target=()=>{ if(reduce) return 1; const r=sec.getBoundingClientRect(); const H=innerHeight; if(innerWidth<=680){ const ph=sec.firstElementChild.offsetHeight, st=(H-ph)/2; return Math.min(clamp((H - r.top)/(H - st),0,1), clamp(r.bottom/(st+ph),0,1)); } const open=clamp((H*.1 - r.top)/(H*1.1),0,1), close=clamp((r.bottom - H*.4)/(H*1.2),0,1); return Math.min(open,close); /* 들어올 때 펴지고, 올라가며 나갈 때 다시 접힘 */ };
     const capT=sec.querySelector('.hg-cap.top'), capB=sec.querySelector('.hg-cap.bot'), outC=t=>1-Math.pow(1-t,3);
     const draw=p=>{ const th=MAX*(1-ease(p)), rad=th*Math.PI/180, W=stage.offsetWidth;
       { const k=t=>outC(clamp(t,0,1));   /* 문구는 흐림→선명, 선은 네모에서부터 천천히 그어짐 */
