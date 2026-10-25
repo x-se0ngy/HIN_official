@@ -2471,16 +2471,22 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
 .hg-cap.top b{background:linear-gradient(90deg,#FEFEFE 0%,#868686 100%) !important;}
 .hg-cap.bot b{background:linear-gradient(90deg,#868686 0%,#FEFEFE 100%) !important;}
 /* About 아래 저작권 */
-.about-copy.m{display:none;}
-.about-copy{margin-top:calc(110*var(--u)); font-family:var(--grotesk); font-weight:400; font-size:calc(14*var(--u)); line-height:1.25; letter-spacing:.01em; color:#7A7A7A;}
+.about-copy.m{display:none !important;}
+.about-copy{margin-top:calc(110*var(--u)); font-family:var(--grotesk); font-weight:500; font-size:calc(16*var(--u)); line-height:1.25; letter-spacing:.01em; color:#9C9C9C;}  /* About 본문과 같은 설정 */
 @media (max-width:680px){
-  .about-copy{margin-top:8px; font-size:11px;}
-  .about-body .about-copy{display:none;}
-  .about-copy.m{display:block;}
+  .about-copy{margin-top:8px; font-size:12.5px; line-height:19px; letter-spacing:.2px; color:#C9C9C9;}
+  .about-body .about-copy{display:none !important;}
+  .about-copy.m{display:block !important;}
   /* 03: 문구를 사진에 바짝 */
   .hg-cap.top{bottom:calc(50% + 16.5vw + 12px) !important;}
   .hg-cap.bot{top:calc(50% + 16.5vw + 12px) !important;}
 }
+</style>
+<style id="s-pin-1025">
+/* 4·6번 슬라이더: 화면 가운데에 잠깐 고정 → 스크롤하며 한 장 넘어가는 걸 보게 */
+.s-pin{--sh:calc(1080*var(--u)); --sx:55vh; position:relative; height:calc(var(--sh) + var(--sx)); margin-top:calc(80*var(--u));}
+.s-pin > .slider{position:sticky !important; top:calc((100vh - var(--sh)) / 2); margin-top:0 !important;}
+@media (max-width:680px){ .s-pin{--sh:560px; --sx:45vh; margin-top:40px;} }
 </style>
 </head>
 <body>
@@ -3414,6 +3420,15 @@ html[data-view="shop"] #navShop span, html[data-view="shop"] #navShop .nav-sq{co
     const stop=()=>{ clearInterval(timer); clearTimeout(kick); timer=null; if(dotWrap) dotWrap.classList.add('paused'); };
     const start=()=>{ stop(); clearTimeout(kick); if(auto && inView && !hover && !document.hidden){ kick=setTimeout(()=>{ go(i+1,1); timer=setInterval(()=>go(i+1,1), 3000); }, 1500);   /* 화면에 들어오면 1.5초 뒤 첫 장 넘김, 이후 3초마다 */ if(dotWrap){ dotWrap.classList.remove('paused'); dots.forEach(d=>{ if(d.classList.contains('on')){ d.style.animation='none'; void d.offsetWidth; d.style.animation=''; } }); } } };
     function restart(){ start(); }
+    // 스크롤로 한 장 넘김: 슬라이더를 잠깐 화면에 고정하고, 고정 구간 절반을 지나면 다음 장 (위로 올리면 이전 장)
+    if (slide2) {
+      const pin=document.createElement('div'); pin.className='s-pin';
+      sl.parentNode.insertBefore(pin, sl); pin.appendChild(sl);
+      const prog=()=>{ const r=pin.getBoundingClientRect(), st=parseFloat(getComputedStyle(sl).top)||0, E=pin.offsetHeight-sl.offsetHeight; return E>0 ? (st - r.top)/E : 0; };
+      let last=prog()>=.5, tk=false;
+      const onS=()=>{ tk=false; const now=prog()>=.5; if(now!==last){ last=now; now ? go(i+1,1) : go(i-1,-1); restart(); } };
+      addEventListener('scroll',()=>{ if(!tk){ tk=true; requestAnimationFrame(onS); } },{passive:true});
+    }
     if (auto) {
       new IntersectionObserver(es=>{ inView=es[0].isIntersecting; start(); }, {threshold:.55}).observe(sl);
       sl.addEventListener('mouseenter',()=>{ hover=true; stop(); });
